@@ -1,50 +1,80 @@
-    <?php
-    include("config.php");
-    include("header.php");
-	require_once 'vendor/autoload.php';
-	$faker = Faker\Factory::create();
+<?php 
 
-	if(isset($_POST['register']))
-	{
-		$count = (int)$_POST['count'];
+  include_once 'config.php';
 
-		for ($i = 1; $i<=$count; $i++)
-		{
-    		
+  if(isset($_POST['register']))
+  {
+    $fname = $_POST['fname'];
+    $Email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $add = $_POST['add'];
+    $phone = $_POST['phone'];
+    $images = $_POST['count'];
+      
+    $sql = "INSERT INTO register (fname,email,password,address,phone_number,images) VALUES ('$fname','$Email','$pass','$add','$phone','$images')";
+    
+    if(mysqli_query($conn,$sql))
+    {
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/data.php");
+    }else
+    {
+      echo "Something went wrong";
+    }
 
-    		$img = imagecreatetruecolor(1700, 750);
-    		/*$font = 'arial.ttf';
-    		$fontbold = 'arialbold.ttf';*/
+
+  }
+
+  include_once 'header.php ';
+?>
+
+
+<?php
+    
+    
+  require_once '../vendor/autoload.php';
+  $faker = Faker\Factory::create();
+
+  if(isset($_POST['register']))
+  {
+    $count = (int)$_POST['count'];
+
+    for ($i = 1; $i<=$count; $i++)
+    {
+        
+
+        $img = imagecreatetruecolor(1700, 750);
+        /*$font = 'arial.ttf';
+        $fontbold = 'arialbold.ttf';*/
              $font = 'arial.ttf';
              $fontbold = './arialbold.ttf';
 
-    		$backcolor = imagecolorallocate($img, 252, 252, 252);
-    		$textcolor = imagecolorallocate($img, 15, 15, 15);
-    		imagefilledrectangle($img, 0, 0, 1800, 900, $backcolor);
+        $backcolor = imagecolorallocate($img, 252, 252, 252);
+        $textcolor = imagecolorallocate($img, 15, 15, 15);
+        imagefilledrectangle($img, 0, 0, 1800, 900, $backcolor);
 
-    		$txt = "FILE INFORMATION";
-    		$nme = "Serial Number ";
-    		$txt1 = $faker->shuffle('ABHDfhdn0847AnF4');
-    		$nme2 = "Business Id ";
-    		$txt2 = $faker->shuffle('divyesh/8564/parekh/123079');
-    		$nme3 = "Analysis Year ";
-    		$txt3 = $faker->year();
-    		$nme4 = "Branch Location #1 ";
-    		$txt4 = $faker->address();
-    		$nme5 = "Branch Location #3 ";
-    		$txt5 = $faker->address();
-    		$nme6 = "Branch Location #5 ";
-    		$txt6 = $faker->address();
-    		$nme10 = "Branch Location #2  ";
-    		$txt10 = $faker->address();
-    		$nme11 = "Branch Location #4  ";
-    		$txt11 = $faker->address();
-    		$nme12 = "File Number  ";
-    		$txt12 = $faker->bothify('?????-#####');
-    		$nme13 = "Accountant ID  ";
-    		$txt13 = $faker->bankAccountNumber();
-    		$nme14 = "Branch Location #6  ";
-    		$txt14 = $faker->address();
+        $txt = "FILE INFORMATION";
+        $nme = "Serial Number ";
+        $txt1 = $faker->shuffle('ABHDfhdn0847AnF4');
+        $nme2 = "Business Id ";
+        $txt2 = $faker->shuffle('divyesh/8564/parekh/123079');
+        $nme3 = "Analysis Year ";
+        $txt3 = $faker->year();
+        $nme4 = "Branch Location #1 ";
+        $txt4 = $faker->address();
+        $nme5 = "Branch Location #3 ";
+        $txt5 = $faker->address();
+        $nme6 = "Branch Location #5 ";
+        $txt6 = $faker->address();
+        $nme10 = "Branch Location #2  ";
+        $txt10 = $faker->address();
+        $nme11 = "Branch Location #4  ";
+        $txt11 = $faker->address();
+        $nme12 = "File Number  ";
+        $txt12 = $faker->bothify('?????-#####');
+        $nme13 = "Accountant ID  ";
+        $txt13 = $faker->bankAccountNumber();
+        $nme14 = "Branch Location #6  ";
+        $txt14 = $faker->address();
             $nme15 = "STAKEHOLDERS ";
             $nme16 = "#  ";
             $nme17 = "ID";
@@ -136,32 +166,32 @@
             $txt32 = $faker->numerify('USD####.00');
             $nme33 = "Total Assets ";
             $txt33 = $faker->numerify('USD####.00');
-
+            $txt34 = $id;
 
                                                                       
 
             
 
 
-    		
+        
 
-    		imagestring($img, 5, 10, 20, $txt, $textcolor);
+        imagestring($img, 5, 10, 20, $txt, $textcolor);
             /*imagettftext($img, 5, 0, 10, 20, $textcolor, $fontbold, $txt);*/
             /*imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);*/
-    		/**/
-    		imagestring($img, 5,10 , 60, $nme, $textcolor);
-    		imagestring($img, 5, 220, 60, $txt1, $textcolor);
-    		imagestring($img, 5, 10, 100, $nme2, $textcolor);
-    		imagestring($img, 5, 220, 100, $txt2, $textcolor);
-    		imagestring($img, 5, 10, 140, $nme3, $textcolor);
-    		imagestring($img, 5, 220, 140, $txt3, $textcolor);
-    		imagestring($img, 5, 10, 190, $nme4, $textcolor);
-    		imagestring($img, 5, 220, 190, $txt4, $textcolor);
+        /**/
+        imagestring($img, 5,10 , 60, $nme, $textcolor);
+        imagestring($img, 5, 220, 60, $txt1, $textcolor);
+        imagestring($img, 5, 10, 100, $nme2, $textcolor);
+        imagestring($img, 5, 220, 100, $txt2, $textcolor);
+        imagestring($img, 5, 10, 140, $nme3, $textcolor);
+        imagestring($img, 5, 220, 140, $txt3, $textcolor);
+        imagestring($img, 5, 10, 190, $nme4, $textcolor);
+        imagestring($img, 5, 220, 190, $txt4, $textcolor);
 
-    		imagestring($img, 5, 10, 230, $nme5, $textcolor);
-    		imagestring($img, 5, 220, 230, $txt5, $textcolor);
-    		/*imageline($img,2,250,1000,250,$textcolor);*/
-    		imagestring($img, 5, 10, 270, $nme6, $textcolor);
+        imagestring($img, 5, 10, 230, $nme5, $textcolor);
+        imagestring($img, 5, 220, 230, $txt5, $textcolor);
+        /*imageline($img,2,250,1000,250,$textcolor);*/
+        imagestring($img, 5, 10, 270, $nme6, $textcolor);
             imagestring($img, 5, 220, 270, $txt6, $textcolor);
 
             imagestring($img, 5, 900, 190, $nme10, $textcolor);
@@ -266,18 +296,18 @@
             imagestring($img, 5,1200 , 710, $txt33, $textcolor);
 
             
-    	
-    		/*imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);
-    		imagettftext($img, 12, 0, 35, 70, $textcolor, $fontbold, $nme);
-    		imagettftext($img, 12, 0, 150, 170, $textcolor, $font, $txt1);*/
+      
+        /*imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);
+        imagettftext($img, 12, 0, 35, 70, $textcolor, $fontbold, $nme);
+        imagettftext($img, 12, 0, 150, 170, $textcolor, $font, $txt1);*/
 
-    		imagesetthickness($img, 10);
+        imagesetthickness($img, 10);
 
-    		imagepng($img,'./' . rand(100000,1000000) . image_type_to_extension(IMAGETYPE_PNG));
+        imagepng($img,'./' . rand(100000,1000000) . image_type_to_extension(IMAGETYPE_PNG));
 
-    		if($img)
+        if($img)
             {
-                echo "Image Created Successfully";
+                echo "<center>Image Created Successfully</center";
             }
             else
             {
@@ -297,7 +327,7 @@
             }
 
 
-            $sql = "INSERT INTO image_record(serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,branch_location5,branch_location6,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$txt1','$txt2','$txt3','$txt4','$txt10','$txt5','$txt11','$txt6','$txt14','$txt12','$txt13','$string','$txt24','$txt25','$txt26','$txt27','$txt28','$txt29','$txt30','$txt31','$txt32','$txt33') ";
+            $sql = "INSERT INTO image_record(serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,branch_location5,branch_location6,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes,assign_id) VALUES('$txt1','$txt2','$txt3','$txt4','$txt10','$txt5','$txt11','$txt6','$txt14','$txt12','$txt13','$string','$txt24','$txt25','$txt26','$txt27','$txt28','$txt29','$txt30','$txt31','$txt32','$txt33','$txt34') ";
 
             /*$sql = "INSERT INTO xxx(numb,busin,year) VALUES('$txt1','$txt2','$txt3')";*/
             
@@ -310,7 +340,103 @@
             {
                 echo "Something went wrong";
             }
-    		
-		}
-	}
+        
+    }
+  }
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register Member</title>
+</head>
+<body>
+  <center>
+  
+      <div class="register-box">
+  <div class="register-logo">
+    <b>Add </b> USER</a>
+  </div>  
+      <form method="POST">
+        
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Full name" name="fname">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="pass">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter your address" name="add">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-map-marker"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="enter your phone number" name="phone">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-phone"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+      <div class="col-xs-2">
+      <select class="form-select form-select-sm" name="count">
+          <option selected>Open to select numbers of image</option>
+          <option>1</option>
+        <option>10</option>
+        <option>20</option>
+        <option>30</option>
+        <option>40</option>
+        <option>50</option>
+        <option>100</option>
+      </select>
+      </div>
+      </div>
+
+      
+      
+        
+        <div class="row">
+          
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="Clear" class="btn btn-outline-danger">Clear</button>
+          </div>
+
+          <div class="col-4">
+            <button type="submit" class="btn btn-outline-primary" name="register">Register</button>
+          </div>
+
+          <!-- /.col -->
+        </div>
+        
+      </form>
+</div>
+    </center>
+</body>
+</html>
+
