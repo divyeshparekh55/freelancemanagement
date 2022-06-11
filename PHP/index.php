@@ -3,7 +3,9 @@
 
   include_once '../config/config.php';
 
-  session_start();
+  include_once './header.php';
+  
+ 
   
 ?>
 
@@ -25,7 +27,7 @@
     <img class="animation__shake" src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  <?php include_once './header.php'  ?>
+  <?php   ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="wrapper">
   <div class="content-wrapper">

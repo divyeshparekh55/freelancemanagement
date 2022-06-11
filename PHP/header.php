@@ -2,19 +2,6 @@
   include_once '../config/config.php';
   
   
- // print_r($_SESSION['User']);
-  //exit;
-
-  //if(isset($_SESSION['User']))
-  //{
-  //  header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/logout.php");
- //   echo '<a href="SERVER_NAME."/".FOLDER_NAME.PHP/login.php"></a> ';
-    //header("location:./login.php");
- // }else
- // {
-   // header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
-    //header("location:./logout.php");
-  //}
 ?>
 <!DOCTYPE html>
 <html>
@@ -225,7 +212,7 @@
           <img src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['User']; ?></a>
+          <a href="#" class="d-block"><?php echo "Divyesh" ?></a>
         </div>
       </div>
 

@@ -1,37 +1,10 @@
 <?php
   include_once './config.php';
   include_once '../config/config.php'; 
-?>
-<?php
-if(isset($_SESSION['User']))
-{
-    header("location:http://localhost/PHP/index.php");
-    
-}
-else{
-  echo "";
-}
 
 
-if(isset($_POST['name']) && isset($_POST['pass']))
-{
-    $name = $_POST['name'];
-    $pass = $_POST['pass'];
+ 
 
-    $sql = "SELECT * FROM admin where fname = '".$name."' AND password = '".$pass."' ";
-
-    $result = mysqli_query($conn,$sql);
-
-    if(mysqli_fetch_assoc($result))
-    {
-        $_SESSION['User'] = $name;
-        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
-    }
-    else
-    {
-      echo "Your Name and Password does not match !";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -111,3 +84,25 @@ if(isset($_POST['name']) && isset($_POST['pass']))
 </html>
 
 
+<?php
+  if(isset($_POST['name']) && isset($_POST['pass']))
+  {
+      $name = $_POST['name'];
+      $pass = $_POST['pass'];
+  
+      $sql = "SELECT * FROM admin where fname = '".$name."' AND password = '".$pass."' ";
+  
+      $result = mysqli_query($conn,$sql);
+  
+      if($row = mysqli_fetch_assoc($result))
+      {
+          
+          
+          header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
+      }
+      else
+      {
+        echo "Your Name and Password does not match !";
+      }
+  }
+?>

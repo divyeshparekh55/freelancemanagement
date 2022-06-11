@@ -5,21 +5,34 @@
 <?php
 	if(isset($_POST['sub']))
 	{
-		$count = (int)$_POST['count'];
-		$id = $_POST['user_assign'];
-		$user_assign = $_POST['user_assign'];
+		$count = $_POST['count'];
 
-		/*$check = 'SELECT COUNT(*) AS total FROM image_record WHERE assign_id = 0';
+		$check = 'SELECT COUNT(*) AS total FROM image_record WHERE assign_id = 0';
 		$sql = mysqli_query($conn,$check);
 		$data = mysqli_fetch_assoc($sql);
-		print_r($data['total']);*/
-
-		$check = 'SELECT * FROM image_record WHERE assign_id = 0';
+		$user_id = $_POST['user_id'];
+		
+		/*$check = 'SELECT * FROM image_record WHERE assign_id = 0';
 		$sql = mysqli_query($conn,$check);
-
-		if($result=mysqli_num_rows($sql))
+		$result = mysqli_num_rows($sql);
+		print_r($result);
+		exit;*/
+		 
+		if($data['total'] >= $count)
 		{
-			$update = "SELECT  UPDATE image_record SET assign_id = ['$id'] WHERE assign_id ";
+			echo "Hiiiiii";
+			$update = "UPDATE image_record SET assign_id = $user_id WHERE assign_id = 0 LIMIT $count ";
+			$result = mysqli_query($conn,$update);
+			if($result)
+			{
+				echo "Update Successfully";
+			}
+			else{
+				echo "Something Went Wrong!";
+			}
+			
+		}else{
+			echo "Create new Images";
 		}
 
 
@@ -33,13 +46,15 @@
 <body>
 	<center>
 		<?php
-			if(isset($_POST['assign']))
+			if(isset($_POST['user_assign']))
 			{
 				$id = $_POST['user_assign'];
 
+				
+
 				$sql = "SELECT * FROM register WHERE id ='$id' ";
 				$query = mysqli_query($conn,$sql);
-
+				
 
 
 
@@ -52,7 +67,9 @@
 			<div class="card-body">
 			<div class="form-group">
 			<div class="col-xs-2">
-				<input type="text" disabled="disabled" name="user_assign" value="<?php echo $row['id']; ?>"><br>
+				<input type="text" disabled="disabled" name="user_assign" value="<?php echo $row['id']; ?>">
+				<input type="hidden"  name="user_id" value="<?php echo $row['id']; ?>">
+				<br>
 				<label>Select Number Of Image</label><br>
 			<select class="form-select form-select-sm" name="count">
   				
