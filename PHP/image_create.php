@@ -1,10 +1,10 @@
     <?php
     include("config.php");
     include("header.php");
-	require_once 'vendor/autoload.php';
+	require_once '../vendor/autoload.php';
 	$faker = Faker\Factory::create();
 
-	if(isset($_POST['register']))
+	if(isset($_POST['sub']))
 	{
 		$count = (int)$_POST['count'];
 
