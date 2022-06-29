@@ -106,9 +106,9 @@
                           </td>
 
                           <td>
-                          <form method="POST" action="./assign_work.php">
-                          <input type="hidden" name="user_assign" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-success" name="assign">Assign Work</button></form>    
+                          <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
+                            <button class="btn btn-outline-success" name="assign">Assign Work</button>
+                          </form>    
                           </td>
                           
                       </tr>

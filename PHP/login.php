@@ -2,8 +2,10 @@
   include_once './config.php';
   include_once '../config/config.php'; 
 
-
- 
+  session_start();
+  if((isset($_SESSION['is_loggedin']) && $_SESSION['is_loggedin'] === true)) {
+    header("location:index.php");
+  }
 
 ?>
 
@@ -90,15 +92,17 @@
       $name = $_POST['name'];
       $pass = $_POST['pass'];
   
-      $sql = "SELECT * FROM admin where fname = '".$name."' AND password = '".$pass."' ";
+      $sql = "SELECT * FROM register where fname = '".$name."' AND password = '".$pass."' ";
   
       $result = mysqli_query($conn,$sql);
-  
+      
       if($row = mysqli_fetch_assoc($result))
       {
-          
-          
-          header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
+        $_SESSION['is_loggedin'] = true;
+        $_SESSION['user_name'] = $_POST['name'];
+        $_SESSION['user_type'] = $row['user_type'];
+        $_SESSION['user_id'] = $row['id'];
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
       }
       else
       {
