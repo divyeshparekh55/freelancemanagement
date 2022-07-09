@@ -9,12 +9,22 @@
 		$count = (int)$_POST['count'];
 		$current_user_id = $_POST["user_id"];
         $titlefont_size = 14;
+        $date = $_POST['date'];
+       /* $years = array('1996','1997','1998','1999','2000','2001','2002','2003','2004');
+        print_r($years);
+        exit();*/
+
+       
 
 		for ($i = 1; $i<=$count; $i++)
 		{
+            $indexx = rand(1,8);
+            $years = array('1996','1997','1998','1999','2000','2001','2002','2003','2004');
+            $rand_year = $years[$indexx];
+
     		$img = imagecreatetruecolor(1700, 750);
-			$fontbold = './source-sans-pro/SourceSansPro-Bold.otf';
-            $font = './source-sans-pro/SourceSansPro-Regular.otf';
+			$fontbold = realpath('./source-sans-pro/SourceSansPro-Bold.otf');
+            $font = realpath('./source-sans-pro/SourceSansPro-Regular.otf');
     		/*$font = 'arial.ttf';
     		$fontbold = 'arialbold.ttf';*/
              
@@ -27,9 +37,9 @@
     		$nme = "Serial Number ";
     		$txt1 = $faker->shuffle('ABHDfhdn0847AnF4');
     		$nme2 = "Business Id ";
-    		$txt2 = $faker->shuffle('divyesh/8564/parekh/123079');
+    		$txt2 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
     		$nme3 = "Analysis Year ";
-    		$txt3 = $faker->year();
+    		$txt3 = $rand_year;
     		$nme4 = "Branch Location #1 ";
     		$txt4 = preg_replace("/\r|\n/", "", $faker->address());
     		$nme5 = "Branch Location #3 ";
@@ -43,7 +53,7 @@
     		$nme12 = "File Number  ";
     		$txt12 = $faker->bothify('?????-#####');
     		$nme13 = "Accountant ID  ";
-    		$txt13 = $faker->bankAccountNumber();
+    		$txt13 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
     		// $nme14 = "Branch Location #6  ";
     		// $txt14 = $faker->address();
             $nme15 = "STAKEHOLDERS ";
@@ -58,7 +68,7 @@
             $nme18 = "1";
             $id1 = $faker->shuffle('1234560789');
             $name1 = $faker->name($gender = null |`male`|`female`);
-            $contact1 = '(xxxx)-xxxx-'.rand(1000,9999);
+            $contact1 = '(xxxx)-xxx-'.rand(1000,9999);
             $operational1 = preg_replace("/\r|\n/", "", $faker->address());
             $code1 = $faker->areaCode();
             $adv1 = $na = $faker->name($gender = null |`male`|`female`);
@@ -68,7 +78,7 @@
             $nme19 = "2 ";
             $id2 = $faker->shuffle('1234560789');
             $name2 = $faker->name($gender = null |`male`|`female`);
-            $contact2 = '(xxxx)-xxxx-'.rand(1000,9999);
+            $contact2 = '(xxxx)-xxx-'.rand(1000,9999);
             $operational2 = preg_replace("/\r|\n/", "", $faker->address());
             $code2 = $faker->areaCode();
             $adv2 = $na = $faker->name($gender = null |`male`|`female`);
@@ -77,7 +87,7 @@
             $nme20 = "3 ";
             $id3 = $faker->shuffle('1234560789');
             $name3 = $faker->name($gender = null |`male`|`female`);
-            $contact3 = '(xxxx)-xxxx-'.rand(1000,9999);
+            $contact3 = '(xxxx)-xxx-'.rand(1000,9999);
             $operational3 = preg_replace("/\r|\n/", "", $faker->address());
             $code3 = $faker->areaCode();
             $adv3 = $na = $faker->name($gender = null |`male`|`female`);
@@ -86,7 +96,7 @@
             $nme21 = "4 ";
             $id4 = $faker->shuffle('1234560789');
             $name4 = $faker->name($gender = null |`male`|`female`);
-            $contact4 = '(xxxx)-xxxx-'.rand(1000,9999);
+            $contact4 = '(xxxx)-xxx-'.rand(1000,9999);
             $operational4 = preg_replace("/\r|\n/", "", $faker->address());
             $code4 = $faker->areaCode();
             $adv4 = $na = $faker->name($gender = null |`male`|`female`);
@@ -95,7 +105,7 @@
             $nme22 = "5 ";
             $id5 = $faker->shuffle('1234560789');
             $name5 = $faker->name($gender = null |`male`|`female`);
-            $contact5 = '(xxxx)-xxxx-'.rand(1000,9999);
+            $contact5 = '(xxxx)-xxx-'.rand(1000,9999);
             $operational5 = preg_replace("/\r|\n/", "", $faker->address());
             $code5 = $faker->areaCode();
             $adv5 = $na = $faker->name($gender = null |`male`|`female`);
@@ -118,25 +128,25 @@
             $nme23 = "ASSETS ";
 
             $nme24 = "Cash & Equivalents ";
-            $txt24 = $faker->numerify('USD####.00');
+            $txt24 = $faker->numerify('USD###,###.00');
             $nme25 = "Inventory ";
-            $txt25 = $faker->numerify('USD####.00');
+            $txt25 = $faker->numerify('USD###,###.00');
             $nme26 = "Total Current Assets ";
-            $txt26 = $faker->numerify('USD####.00');
+            $txt26 = $faker->numerify('USD###,###.00');
             $nme27 = "Net Fixed Assets ";
-            $txt27 = $faker->numerify('USD####.00');
+            $txt27 = $faker->numerify('USD###,###.00');
             $nme28 = "Other Non Current Assets ";
-            $txt28 = $faker->numerify('USD####.00');
+            $txt28 = $faker->numerify('USD###,###.00');
             $nme29 = "Trade Accounts receivable ";
-            $txt29 = $faker->numerify('USD####.00');
+            $txt29 = $faker->numerify('USD###,###.00');
             $nme30 = "other Current Assets ";
-            $txt30 = $faker->numerify('USD####.00');
+            $txt30 = $faker->numerify('USD###,###.00');
             $nme31 = "Long-term Investments ";
-            $txt31 = $faker->numerify('USD####.00');
+            $txt31 = $faker->numerify('USD###,###.00');
             $nme32 = "intangible Assets ";
-            $txt32 = $faker->numerify('USD####.00');
+            $txt32 = $faker->numerify('USD###,###.00');
             $nme33 = "Total Assets ";
-            $txt33 = $faker->numerify('USD####.00');
+            $txt33 = $faker->numerify('USD###,###.00');
 
 
     		// imagestring($img, 5, 10, 20, $txt, $textcolor);
@@ -263,34 +273,34 @@
 
             imagettftext($img, $titlefont_size,0,10 , 557, $textcolor ,$fontbold , $nme23);
 
-            imagettftext($img, $titlefont_size,0,10 , 590, $textcolor ,$font , $nme24);
+            imagettftext($img, $titlefont_size,0,10 , 590, $textcolor ,$fontbold , $nme24);
             imagettftext($img, $titlefont_size,0,400 , 590, $textcolor ,$font , $txt24)
             ;
-            imagettftext($img, $titlefont_size,0,10 , 620, $textcolor ,$font , $nme25);
+            imagettftext($img, $titlefont_size,0,10 , 620, $textcolor ,$fontbold , $nme25);
             imagettftext($img, $titlefont_size,0,400 , 620, $textcolor ,$font , $txt25);
 
-            imagettftext($img, $titlefont_size,0,10 , 650, $textcolor ,$font , $nme26);
+            imagettftext($img, $titlefont_size,0,10 , 650, $textcolor ,$fontbold , $nme26);
             imagettftext($img, $titlefont_size,0,400 , 650, $textcolor ,$font , $txt26);
 
-            imagettftext($img, $titlefont_size,0,10 , 680, $textcolor ,$font , $nme27);
+            imagettftext($img, $titlefont_size,0,10 , 680, $textcolor ,$fontbold , $nme27);
             imagettftext($img, $titlefont_size,0,400 , 680, $textcolor ,$font , $txt27);
 
-            imagettftext($img, $titlefont_size,0,10 , 710, $textcolor ,$font , $nme28);
+            imagettftext($img, $titlefont_size,0,10 , 710, $textcolor ,$fontbold , $nme28);
             imagettftext($img, $titlefont_size,0,400 , 710, $textcolor ,$font , $txt28);
 
-            imagettftext($img, $titlefont_size,0, 900, 590, $textcolor ,$font , $nme29);
+            imagettftext($img, $titlefont_size,0, 900, 590, $textcolor ,$fontbold , $nme29);
             imagettftext($img, $titlefont_size,0,1200 , 590, $textcolor ,$font , $txt29);
 
-            imagettftext($img, $titlefont_size,0, 900, 620, $textcolor ,$font , $nme30);
+            imagettftext($img, $titlefont_size,0, 900, 620, $textcolor ,$fontbold , $nme30);
             imagettftext($img, $titlefont_size,0,1200 , 620, $textcolor ,$font , $txt30);
 
-            imagettftext($img, $titlefont_size,0, 900, 650, $textcolor ,$font , $nme31);
+            imagettftext($img, $titlefont_size,0, 900, 650, $textcolor ,$fontbold , $nme31);
             imagettftext($img, $titlefont_size,0,1200 , 650, $textcolor ,$font , $txt31);
 
-            imagettftext($img, $titlefont_size,0, 900, 680, $textcolor ,$font , $nme32);
+            imagettftext($img, $titlefont_size,0, 900, 680, $textcolor ,$fontbold , $nme32);
             imagettftext($img, $titlefont_size,0,1200 , 680, $textcolor ,$font , $txt32);
 
-            imagettftext($img, $titlefont_size,0, 900, 710, $textcolor ,$font , $nme33);
+            imagettftext($img, $titlefont_size,0, 900, 710, $textcolor ,$fontbold , $nme33);
             imagettftext($img, $titlefont_size,0,1200 , 710, $textcolor ,$font , $txt33);
 
             
@@ -316,7 +326,7 @@
   
             $newvar = unserialize($string);
 
-            $sql = "INSERT INTO image_record(serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,branch_location5,branch_location6,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes,assign_id,image_name) VALUES('$txt1','$txt2','$txt3','$txt4','$txt10','$txt5','$txt11','','','$txt12','$txt13','$string','$txt24','$txt25','$txt26','$txt27','$txt28','$txt29','$txt30','$txt31','$txt32','$txt33','$current_user_id','$randomname.png') ";
+            $sql = "INSERT INTO image_record(serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,branch_location5,branch_location6,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes,assign_id,image_name,work_assign_date) VALUES('$txt1','$txt2','$txt3','$txt4','$txt10','$txt5','$txt11','','','$txt12','$txt13','$string','$txt24','$txt25','$txt26','$txt27','$txt28','$txt29','$txt30','$txt31','$txt32','$txt33','$current_user_id','$randomname.png','$date') ";
             
             if($result = mysqli_query($conn,$sql))
             {
@@ -375,7 +385,9 @@
 			<div class="col-xs-2">
 				<input type="text" disabled="disabled" name="user_assign" value="<?php echo $_GET['id']; ?>">
 				<input type="hidden"  name="user_id" value="<?php echo $_GET['id']; ?>">
-				<br>
+                <br>
+                <input type="date" id="date"  name="date" value="">
+                <br>
 				<label>Select Number Of Image</label><br>
 			<select class="form-select form-select-sm" name="count">
   				
@@ -396,4 +408,8 @@
 	</form>
 	</center>
 </body>
+<script>
+    var today = new window.Date().toISOString().split('T')[0];
+    document.getElementsByName("date")[0].setAttribute('min', today);  
+</script>
 </html>

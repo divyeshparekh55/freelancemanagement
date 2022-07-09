@@ -28,28 +28,29 @@
 <?php include_once './header.php' ?>
 
   <!-- Content Wrapper. Contains page content -->
-  
+  <?php
+  date_default_timezone_set("Asia/Calcutta");
+  $current_date = date("Y-m-d");
+
+  ?>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>My Work</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">My Work</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    <div class="col-2">
-    <button class="btn btn-outline-primary">
-    <a href="./register.php">Add Member</a>
-    </button></div>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -66,52 +67,38 @@
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
           
-                  <thread>
-                  <tr>
-                    <th>Id</th>
-                    <th>First Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Password</th>
-                    <th>Phone Number</th>
-                    <th colspan="3">Update User</th>
-                    <!-- <th>Delete User</th>
-                    <th>Assign Work</th> -->
-                  </tr>
-                  </thread>
                   
+                  <tr>
+                    <t>
+                    <th>Id</th>
+                    <th>Image Name</th>
+                    <th>Date</th>
+					<th>Options</th>
+                    
+                  
+                  </t>
 
                     <?php
-                     $sql = "SELECT * FROM register";
+					$user_id = $_SESSION['user_id'];
+
+                     $sql = "SELECT * FROM image_submit WHERE user_id='$user_id' ";
                      $result = mysqli_query($conn,$sql);
                       while($row = mysqli_fetch_assoc($result))
                          {
                             ?>
-                            <tbody>
                             <tr>
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['fname']; ?> </td>
-                        <td> <?php echo $row['email']; ?> </td>
-                        <td> <?php echo $row['address']; ?> </td>
-                        <td> <?php echo $row['password']; ?> </td>
-                        <td> <?php echo $row['phone_number']; ?> </td>
+                        <td> <?php echo $row['image_name']; ?> </td>
+                        <td> <?php echo $row['work_date']; ?> </td>
+                        
                         <td>
                           <form method="POST" action="./edit.php">
                           <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-info" name="edit_btn">Edit</button></form></td>
-                         
-                          <td>
-                          <form method="POST" action="./delete.php">
-                          <input type="hidden" name="user_delete" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-danger" name="delete">Delete</button></form></td>    
-                          
-                          <td>
-                          <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
-                            <button class="btn btn-outline-success" name="assign">Assign Work</button>
-                          </form>    
+                          <button class="btn btn-outline-info" <?php if($current_date !== $row['work_date']) { ?> disabled <?php } ?> name="edit_btn">Edit</button></form>
                           </td>
                           
-                      </tr></tbody>
+                          
+                      </tr>
                       <?php
                         }
                         ?>

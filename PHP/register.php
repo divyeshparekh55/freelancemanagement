@@ -1,25 +1,26 @@
 <?php 
 
   include_once 'config.php';
+  include_once '../config/config.php';
 
   if(isset($_POST['register']))
   {
-    $fname = $_POST['fname'];
-    $Email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $add = $_POST['add'];
-    $phone = $_POST['phone'];
-    $images = $_POST['count'];
+     $fname = $_POST['fname'];
+     $Email = $_POST['email'];
+     $pass = $_POST['pass'];
+     $add = $_POST['add'];
+     $phone = $_POST['phone'];
+     $images = $_POST['count'];
       
-    $sql = "INSERT INTO register (fname,email,password,address,phone_number,images) VALUES ('$fname','$Email','$pass','$add','$phone','$images')";
+     $sql = "INSERT INTO register (fname,email,password,address,phone_number,images) VALUES ('$fname','$Email','$pass','$add','$phone','$images')";
     
-    if(mysqli_query($conn,$sql))
-    {
-        header("location:".SERVER_NAME."/".FOLDER_NAME."/data.php");
-    }else
-    {
-      echo "Something went wrong";
-    }
+     if(mysqli_query($conn,$sql))
+     {
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/data.php");
+     }else
+     {
+       echo "Something went wrong";
+     }
 
 
   }

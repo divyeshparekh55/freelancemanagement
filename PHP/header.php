@@ -211,6 +211,15 @@
             </a>
           </li>
 
+          <li class="nav-item <?php echo $usertype == 'client' ? '' : 'hide'; ?>">
+            <a href="my_work.php" class="nav-link">
+              <i class="nav-icon fas "></i>
+              <p>
+                My Work
+              </p>
+            </a>
+          </li>
+
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>

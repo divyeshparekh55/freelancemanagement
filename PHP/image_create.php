@@ -3,6 +3,7 @@
     include("header.php");
 	require_once '../vendor/autoload.php';
 	$faker = Faker\Factory::create();
+    
 
 	if(isset($_POST['sub']))
 	{
@@ -12,11 +13,17 @@
 		{
     		
 
+            $indexx = rand(1,8);
+            $years = array('1996','1997','1998','1999','2000','2001','2002','2003','2004');
+            $rand_year = $years[$indexx];
+
     		$img = imagecreatetruecolor(1700, 750);
     		/*$font = 'arial.ttf';
     		$fontbold = 'arialbold.ttf';*/
              $font = 'arial.ttf';
-             $fontbold = './arialbold.ttf';
+             $fontbold = 'arialbold.ttf';
+
+            
 
     		$backcolor = imagecolorallocate($img, 252, 252, 252);
     		$textcolor = imagecolorallocate($img, 15, 15, 15);
@@ -26,9 +33,9 @@
     		$nme = "Serial Number ";
     		$txt1 = $faker->shuffle('ABHDfhdn0847AnF4');
     		$nme2 = "Business Id ";
-    		$txt2 = $faker->shuffle('divyesh/8564/parekh/123079');
-    		$nme3 = "Analysis Year ";
-    		$txt3 = $faker->year();
+    		$txt2 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
+    		$nme3 = "Analysis Year";
+    		$txt3 = $rand_year;
     		$nme4 = "Branch Location #1 ";
     		$txt4 = $faker->address();
     		$nme5 = "Branch Location #3 ";
@@ -42,7 +49,7 @@
     		$nme12 = "File Number  ";
     		$txt12 = $faker->bothify('?????-#####');
     		$nme13 = "Accountant ID  ";
-    		$txt13 = $faker->bankAccountNumber();
+    		$txt13 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
     		$nme14 = "Branch Location #6  ";
     		$txt14 = $faker->address();
             $nme15 = "STAKEHOLDERS ";
@@ -117,25 +124,25 @@
             $nme23 = "ASSETS ";
 
             $nme24 = "Cash & Equivalents ";
-            $txt24 = $faker->numerify('USD####.00');
+            $txt24 = $faker->numerify('USD###,###.00');
             $nme25 = "Inventory ";
-            $txt25 = $faker->numerify('USD####.00');
+            $txt25 = $faker->numerify('USD###,###.00');
             $nme26 = "Total Current Assets ";
-            $txt26 = $faker->numerify('USD####.00');
+            $txt26 = $faker->numerify('USD###,###.00');
             $nme27 = "Net Fixed Assets ";
-            $txt27 = $faker->numerify('USD####.00');
+            $txt27 = $faker->numerify('USD###,###.00');
             $nme28 = "Other Non Current Assets ";
-            $txt28 = $faker->numerify('USD####.00');
+            $txt28 = $faker->numerify('USD###,###.00');
             $nme29 = "Trade Accounts receivable ";
-            $txt29 = $faker->numerify('USD####.00');
+            $txt29 = $faker->numerify('USD###,###.00');
             $nme30 = "other Current Assets ";
-            $txt30 = $faker->numerify('USD####.00');
+            $txt30 = $faker->numerify('USD###,###.00');
             $nme31 = "Long-term Investments ";
-            $txt31 = $faker->numerify('USD####.00');
+            $txt31 = $faker->numerify('USD###,###.00');
             $nme32 = "intangible Assets ";
-            $txt32 = $faker->numerify('USD####.00');
+            $txt32 = $faker->numerify('USD###,###.00');
             $nme33 = "Total Assets ";
-            $txt33 = $faker->numerify('USD####.00');
+            $txt33 = $faker->numerify('USD###,###.00');
 
 
                                                                       
@@ -146,9 +153,9 @@
     		
 
     		imagestring($img, 5, 10, 20, $txt, $textcolor);
-            /*imagettftext($img, 5, 0, 10, 20, $textcolor, $fontbold, $txt);*/
-            /*imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);*/
-    		/**/
+            //imagettftext($img, 5, 0, 10, 20, $textcolor, $fontbold, $txt);*/
+            //imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);*/
+    		
     		imagestring($img, 5,10 , 60, $nme, $textcolor);
     		imagestring($img, 5, 220, 60, $txt1, $textcolor);
     		imagestring($img, 5, 10, 100, $nme2, $textcolor);
@@ -267,9 +274,9 @@
 
             
     	
-    		/*imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);
-    		imagettftext($img, 12, 0, 35, 70, $textcolor, $fontbold, $nme);
-    		imagettftext($img, 12, 0, 150, 170, $textcolor, $font, $txt1);*/
+    		//imagettftext($img, 20, 0, 400, 40, $textcolor, $fontbold, $txt);
+    		//imagettftext($img, 12, 0, 35, 70, $textcolor, $fontbold, $nme);
+    		//imagettftext($img, 12, 0, 150, 170, $textcolor, $font, $txt1);*/
 
     		imagesetthickness($img, 10);
 
