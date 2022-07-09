@@ -149,9 +149,6 @@
     if(isset($_POST['submit'])) {
       extract($_POST);
 
-      /*$serialnumber = $_POST['serialnumber'];
-      $form_value = array("serialnumber" => "serialnumber","businessid" =>"$businessid" ,"analysisyear" =>"$analysisyear" ,"branchlocation1" =>"$branchlocation1" ,"branchlocation2" =>"$branchlocation2" ,"branchlocation3" =>"$branchlocation3" ,"branchlocation4" =>"$branchlocation4" ,"filenumber" =>"$filenumber" ,"accountid" =>"$accountid" ,"cashandequivalents" =>"$cashandequivalents" ,"inventory" =>"$inventory" ,"totcurrentassets" =>"$totcurrentassets" ,"netfixedassets" =>"$netfixedassets" ,"othernoncurrentassets" =>"$othernoncurrentassets" ,"tradeaccrec" =>"tradeaccrec" ,"othercurrentassets","longterminv","intgassets","totalassets");*/
-
         $arr = array(
                 array('ID','Name','Contact Number','Operational Area','Advisor 1'),
                 array('$id1','$name1','$contact1','$operationalarea1','$advisor1f1'),
@@ -169,7 +166,9 @@
         $newvar = unserialize($string);
         
 
-      $sql = "INSERT INTO image_submit(user_id,work_date,serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$user_id','$date_time','$serialnumber','$businessid','$analysisyear','$branchlocation1','$branchlocation2','$branchlocation3','$branchlocation4','$filenumber','$accountid','$string','$cashandequivalents','$inventory','$totcurrentassets','$netfixedassets','$othernoncurrentassets','$tradeaccrec','$othercurrentassets','$longterminv','$intgassets','$totalassets')";
+      // $sql = "INSERT INTO image_submit(user_id,work_date,serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$user_id','$date_time','$serialnumber','$businessid','$analysisyear','$branchlocation1','$branchlocation2','$branchlocation3','$branchlocation4','$filenumber','$accountid','$string','$cashandequivalents','$inventory','$totcurrentassets','$netfixedassets','$tradeaccrec','$othernoncurrentassets','$longterminv','$intgassets','$totalassets')";
+
+      $db->insert('image_submit',array('user_id'=>$user_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
       
       
       if($result = mysqli_query($conn,$sql)) {
@@ -232,7 +231,7 @@
                 
                 <!-- Date and time -->
                  <div class="form-group">
-                  <label>Date and time:</label>
+                  
                     <div class="input-group date" id="reservationdatetime" data-target-input="nearest" >
                         <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" disabled="disabled" value="<?php echo "$date_time"; ?>" name="date"/>
                         <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
@@ -245,7 +244,7 @@
 
                
                 <div class="form-group">
-                  <label>Select Work Image</label>
+                  
                   <br>
                   <select class="form-control select2" name="imageselect" id="imageselect" style="width: 100%;">
                     <option>Select</option>
@@ -265,7 +264,7 @@
               </div>
               <!-- /.col -->
             </div>
-            <div class="card example-1 square scrollbar-dusty-grass square thin">
+            <div class="card example-1 square  square thin">
             <div class="row actionsdiv hide">
                 <div class="col-md-12 imageheightdiv">
                   <img id="imagesource" width="100%" />
@@ -300,42 +299,42 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Serial Number</label>
+                          
                           <input type="text" class="form-control" id="serialnumber" name="serialnumber" placeholder="Enter Serial Number">
                         </div>
                         <div class="form-group">
-                          <label>Business Id</label>
+                         
                           <input type="text" class="form-control" id="businessid" name="businessid" placeholder="Enter Business Id">
                         </div>
                         <div class="form-group">
-                          <label>Analysis Year</label>
+                         
                           <input type="text" class="form-control" id="analysisyear" name="analysisyear" placeholder="Enter Analysis Year">
                         </div>
                         <div class="form-group">
-                          <label>Branch Location #1</label>
+                          
                           <input type="text" class="form-control" id="branchlocation1" name="branchlocation1" placeholder="Enter Branch Location 1">
                         </div>
                         <div class="form-group">
-                          <label>Branch Location #3</label>
+                          
                           <input type="text" class="form-control" id="branchlocation3" name="branchlocation3" placeholder="Enter Branch Location 3">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>File Number</label>
+                          
                           <input type="text" class="form-control" id="filenumber" name="filenumber" placeholder="Enter File Number">
                         </div>
                         <div class="form-group">
-                          <label>Account Id</label>
+                         
                           <input type="text" class="form-control" id="accountid" name="accountid" placeholder="Enter Account Id">
                         </div>
                         
                         <div class="form-group">
-                          <label>Branch Location #2</label>
+                          
                           <input type="text" class="form-control" id="branchlocation2" name="branchlocation2" placeholder="Enter Branch Location 2">
                         </div>
                         <div class="form-group">
-                          <label>Branch Location #4</label>
+                         
                           <input type="text" class="form-control" id="branchlocation4" name="branchlocation4" placeholder="Enter Branch Location 4">
                         </div>
 
@@ -345,38 +344,34 @@
                   <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
 
                   <!-- Stack Holder -->
-                  <div class="card-body">
+                  
                   <?php for ($i=1; $i <= 5; $i++) { ?>
-                    <div class="card actionsdiv card-default">
-                      <div class="card-header">
-                        <h3 class="card-title">#<?php echo $i; ?></h3>
-                        <div class="card-tools">
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <div class="row">                        
+                    
+                      
+                        <h3 class="card-title"></h3>
+                        
+                      
+                        <div class="row">                      
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">ID <?php echo $i; ?></label> -->
                               <input type="text" class="form-control" id="id<?php echo $i; ?>" name="id<?php echo $i; ?>" placeholder=" ID <?php echo $i; ?>">
                             </div></div>
+
+                            <div class="col-md-2">
+                          <div class="form-group">
+                              <!-- <label id="section1">Name <?php echo $i; ?></label> -->
+                              <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" placeholder="Name <?php echo $i; ?>">
+                            </div></div>
+
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">Contact Number <?php echo $i; ?></label> -->
                               <input type="text" class="form-control" id="contact<?php echo $i; ?>" name="contact<?php echo $i; ?>" placeholder=" Contact Number <?php echo $i; ?>">
                             </div></div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <!-- <label id="section1">Advisor #1</label> -->
-                              <input type="text" class="form-control" id="advisor<?php echo $i; ?>f1" name="advisor<?php echo $i; ?>f1" placeholder="Advisor <?php echo $i; ?>">
-                            </div>
-                          </div> 
+                          
 
-                          <div class="col-md-2">
-                          <div class="form-group">
-                              <!-- <label id="section1">Name <?php echo $i; ?></label> -->
-                              <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" placeholder="Name <?php echo $i; ?>">
-                            </div></div>
+                          
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">Operational Area <?php echo $i; ?></label> -->
@@ -384,8 +379,15 @@
                             </div>
                             
                           </div>
-                        </div>
-                      </div>
+
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <!-- <label id="section1">Advisor #1</label> -->
+                              <input type="text" class="form-control" id="advisor<?php echo $i; ?>f1" name="advisor<?php echo $i; ?>f1" placeholder="Advisor <?php echo $i; ?>">
+                            </div>
+                          </div> 
+                        
+                      
                     </div>
                     <?php } ?>
                     <!-- <div class="col-md-6">
@@ -397,53 +399,53 @@
                 </div>
 
 
-                  </div>
+                  
                   <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
                     <!-- Assets -->
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Cash & Equivalents</label>
+                          
                           <input type="text" class="form-control" id="cashandequivalents" name="cashandequivalents" placeholder="Enter Cash & Equivalents">
                         </div>
                         <div class="form-group">
-                          <label>Inventory</label>
+                          
                           <input type="text" class="form-control" id="inventory" name="inventory" placeholder="Enter Inventory">
                         </div>
                         <div class="form-group">
-                          <label>Total Current Assets</label>
+                          
                           <input type="text" class="form-control" id="totcurrentassets" name="totcurrentassets" placeholder="Enter Total Current Assets">
                         </div>
                         <div class="form-group">
-                          <label>Net Fixed Assets</label>
+                          
                           <input type="text" class="form-control" id="netfixedassets" name="netfixedassets" placeholder="Enter Net Fixed Assets">
                         </div>
                         <div class="form-group">
-                          <label>Other Non Current Assets</label>
-                          <input type="text" class="form-control" id="othercurrentassets" name="othercurrentassets" placeholder="Enter Other Non Current Assets">
+                         
+                          <input type="text" class="form-control" id="othernoncurrentassets" name="othernoncurrentassets" placeholder="Enter Other Non Current Assets">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Trade Account Receivable</label>
+                          
                           <input type="text" class="form-control" id="tradeaccrec" name="tradeaccrec" placeholder="Enter Trade Account Receivable">
                         </div>
                         <div class="form-group">
-                          <label>Other Current Assets</label>
+                          
                           <input type="text" class="form-control" id="othercurrentassets" name="othercurrentassets" placeholder="Enter Other Current Assets">
                         </div>
                         
                         <div class="form-group">
-                          <label>Long Term Investments</label>
+                          
                           <input type="text" class="form-control" id="longterminv" name="longterminv" placeholder="Enter Long Term Investments">
                         </div>
                         <div class="form-group">
-                          <label>Intangible Assets</label>
+                          
                           <input type="text" class="form-control" id="intgassets" name="intgassets" placeholder="Enter Intangible Assets">
                         </div>
 
                         <div class="form-group">
-                          <label>Total Assets</label>
+                         
                           <input type="text" class="form-control" id="totalassets" name="totalassets" placeholder="Enter Total Assets">
                         </div>
 

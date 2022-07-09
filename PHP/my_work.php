@@ -92,7 +92,7 @@
                         <td> <?php echo $row['work_date']; ?> </td>
                         
                         <td>
-                          <form method="POST" action="./edit.php">
+                          <form method="POST" action="./work.php">
                           <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
                           <button class="btn btn-outline-info" <?php if($current_date !== $row['work_date']) { ?> disabled <?php } ?> name="edit_btn">Edit</button></form>
                           </td>
