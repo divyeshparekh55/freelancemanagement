@@ -1,7 +1,15 @@
 <?php
+session_start();
+
+if($_SESSION['user_type'] !== 'admin') {
+    session_unset();
+    header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+}
+
+
   include_once 'config.php';
   include_once '../config/config.php';
- 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +33,13 @@
   
 <div class="wrapper">
 <!-- Header Section  -->
-<?php include_once './header.php' ?>
+<?php 
+  include_once './header.php';
+  if($_SESSION['user_type'] !== 'admin') {
+    session_unset();
+    header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+  } 
+?>
 
   <!-- Content Wrapper. Contains page content -->
   
@@ -58,15 +72,14 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Data of all users.</h3>
+                <h3 class="card-title">User Lists</h3>
                 
               </div>
-
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
           
-                  <thread>
+                <thead>
                   <tr>
                     <th>Id</th>
                     <th>First Name</th>
@@ -74,14 +87,11 @@
                     <th>Address</th>
                     <th>Password</th>
                     <th>Phone Number</th>
-                    <th colspan="3">Update User</th>
-                    <!-- <th>Delete User</th>
-                    <th>Assign Work</th> -->
+                    <th>Actions</th>
                   </tr>
-                  </thread>
-                  
-
-                    <?php
+                </thead>
+                <tbody>
+                <?php
                      $sql = "SELECT * FROM register";
                      $result = mysqli_query($conn,$sql);
                       while($row = mysqli_fetch_assoc($result))
@@ -98,16 +108,12 @@
                         <td>
                           <form method="POST" action="./edit.php">
                           <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-info" name="edit_btn">Edit</button></form></td>
-                         
-                          <td>
+                          <button class="btn btn-primary" name="edit_btn">Edit</button></form>
                           <form method="POST" action="./delete.php">
                           <input type="hidden" name="user_delete" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-danger" name="delete">Delete</button></form></td>    
-                          
-                          <td>
+                          <button class="btn btn-danger" name="delete">Delete</button></form>    
                           <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
-                            <button class="btn btn-outline-success" name="assign">Assign Work</button>
+                            <button class="btn btn-success" name="assign">Assign Work</button>
                           </form>    
                           </td>
                           
@@ -116,6 +122,8 @@
                         }
                         ?>
                   </tr> 
+                </tbody>
+                  
                 </table>
               </div>
               <!-- /.card-body -->
@@ -174,23 +182,29 @@
 <script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/js/demo.js"></script>
+<script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/summernote/summernote.js"></script>
+<script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/daterangepicker/daterangepicker.js"></script>
+
+
 <!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
+    $(document).ready(() => {
+      $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
-      "info": true,
-      "autoWidth": false,
       "responsive": true,
-    });
-  });
+      "buttons": [
+            {
+                text: 'Add User',
+                action: function ( e, dt, node, config ) {
+                    window.location.href = "register.php";  
+                }
+            }
+        ]
+      });
+    })
 </script>
 
 </body>

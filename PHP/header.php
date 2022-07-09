@@ -2,7 +2,10 @@
   include_once '../config/config.php';
   
   $usertype=null;
-  session_start();
+  if(!isset($_SESSION)) 
+  { 
+      session_start(); 
+  }
   if(!(isset($_SESSION['is_loggedin']) && $_SESSION['is_loggedin'] === true)) {
     header("location:login.php");
   } else{
@@ -40,6 +43,14 @@
     .hide {
       display: none;
     }
+    .imageheightdiv {
+      max-height: 350px;
+      border: 1px solid black;
+      overflow: auto;
+    }
+    .nav-link {
+      padding: 10px !important;
+    }
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -62,28 +73,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -102,27 +91,6 @@
   </nav>
 
 	<ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -144,65 +112,37 @@
         </div>
       </div>
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open <?php echo $usertype == 'admin' ? '' : 'hide'; ?> ">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.php" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
+          <?php if($usertype == 'admin') { ?>
+
+            <li class="nav-item menu-open">
+              <a href="./index.php" class="nav-link active">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+            
+          <?php } ?>
           
-        
-          <li class="nav-item <?php echo $usertype == 'admin' ? '' : 'hide'; ?>">
-            <a href="#" class="nav-link">
+        <?php if($usertype == 'admin') { ?>
+          <li class="nav-item">
+            <a href="data.php" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                User Data
-                <i class="fas fa-angle-left right"></i>
+                User List
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              
-              <li class="nav-item">
-                <a href="data.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p> Data</p>
-                </a>
-              </li>
-              
-            </ul>
           </li>
+        <?php } ?>
 
-
-          <li class="nav-item <?php echo $usertype == 'client' ? '' : 'hide'; ?>">
+        <?php if($usertype == 'client') {?>
+          <li class="nav-item">
             <a href="work.php" class="nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>
@@ -220,6 +160,7 @@
             </a>
           </li>
 
+          <?php } ?>
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>

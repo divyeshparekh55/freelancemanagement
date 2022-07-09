@@ -1,8 +1,13 @@
 <?php
+    session_start();
+    if($_SESSION['user_type'] !== 'admin') {
+        session_unset();
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+    }
+
 	include_once './header.php';
 	include_once './config.php';
-	require_once '../vendor/autoload.php';
-	$faker = Faker\Factory::create();
+	require_once '../vendor/autoload.php'; 
 
 	if(isset($_POST['sub']))
 	{
@@ -15,6 +20,9 @@
         exit();*/
 
        
+
+        // random year between 1996 to 2004
+        $rand_year = rand(1996,2004);
 
 		for ($i = 1; $i<=$count; $i++)
 		{
@@ -37,7 +45,7 @@
     		$nme = "Serial Number ";
     		$txt1 = $faker->shuffle('ABHDfhdn0847AnF4');
     		$nme2 = "Business Id ";
-    		$txt2 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
+    		$txt2 = 'BIZ/'.$rand_year.'/CKCW/'.rand(100000,999999);
     		$nme3 = "Analysis Year ";
     		$txt3 = $rand_year;
     		$nme4 = "Branch Location #1 ";
@@ -53,7 +61,7 @@
     		$nme12 = "File Number  ";
     		$txt12 = $faker->bothify('?????-#####');
     		$nme13 = "Accountant ID  ";
-    		$txt13 = $faker->regexify('[A-Z]{3}') .'/'. $rand_year . '/' . $faker->regexify('[A-Z]{4}') .'/'. $faker->numerify('######');
+    		$txt13 = 'ACT/'.$rand_year.'/PGOF/'.rand(100000,999999);
     		// $nme14 = "Branch Location #6  ";
     		// $txt14 = $faker->address();
             $nme15 = "STAKEHOLDERS ";
@@ -114,12 +122,11 @@
 
             $arr = array(
                    array('#','ID','Name','Contact Number','Operational Area','Advisor 1','Advisor 2'),
-                   array($nme18,$id1,$name1,$contact1,$operational1,$code1,$adv1,$adv11),
-                   array($nme19,$id2,$name2,$contact2,$operational2,$code2,$adv2,$adv12),
-                   array($nme20,$id3,$name3,$contact3,$operational3,$code3,$adv3,$adv13),
-                   array($nme21,$id4,$name4,$contact4,$operational4,$code4,$adv4,$adv14),
-                   array($nme22,$id5,$name5,$contact5,$operational5,$code5,$adv5,$adv15)
-
+                   array($nme18,$id1,$name1,$contact1,$operational1,$code1,$adv1,''),
+                   array($nme19,$id2,$name2,$contact2,$operational2,$code2,$adv2,''),
+                   array($nme20,$id3,$name3,$contact3,$operational3,$code3,$adv3,''),
+                   array($nme21,$id4,$name4,$contact4,$operational4,$code4,$adv4,''),
+                   array($nme22,$id5,$name5,$contact5,$operational5,$code5,$adv5,'')
             );
 
 
@@ -203,8 +210,7 @@
             // imagestring($img, 5, 1110, 270, $txt14, $textcolor);
 
             imageline($img,5,310,1800,310,$textcolor);
-
-            imagettftext($img, $titlefont_size, 0, 10, 340, $textcolor, $fontbold, $nme15);
+            imagettftext($img, 20, 0, 10, 340, $textcolor, $fontbold, $nme15);
             // imagestring($img, 5,10 , 340, $nme15, $textcolor);
             imagettftext($img, $titlefont_size, 0, 10, 360, $textcolor, $fontbold, $nme16);
             // imagestring($img, 5,10 , 360, $nme16, $textcolor);
@@ -218,7 +224,7 @@
             // imagestring($img, 5,700 , 360, $operational, $textcolor);
             imagettftext($img, $titlefont_size, 0, 1200, 360, $textcolor, $fontbold, $advisor);
             // imagestring($img, 5,1200 , 360, $advisor, $textcolor);
-            imagettftext($img, $titlefont_size, 0, 1450, 360, $textcolor, $fontbold, $advisor1);
+            // imagettftext($img, $titlefont_size, 0, 1450, 360, $textcolor, $fontbold, $advisor1);
             // imagestring($img, 5,1450 , 360, $advisor1, $textcolor);
 
             imagettftext($img, $titlefont_size,0,10 , 400,$textcolor, $font,$nme18);            
@@ -228,7 +234,7 @@
             imagettftext($img, $titlefont_size,0,700 , 400,$textcolor, $font,$operational1);
             // imagettftext($img, $titlefont_size,0,1060 , 400,$textcolor, $font,$code1);
             imagettftext($img, $titlefont_size,0,1200 , 400,$textcolor, $font,$adv1);
-            imagettftext($img, $titlefont_size,0,1450 , 400,$textcolor, $font,$adv11);
+            // imagettftext($img, $titlefont_size,0,1450 , 400,$textcolor, $font,$adv11);
 
             imagettftext($img, $titlefont_size, 0,100 , 430,$textcolor,$font, $id2);
             imagettftext($img, $titlefont_size, 0,250 , 430,$textcolor,$font, $name2);
@@ -236,7 +242,7 @@
             imagettftext($img, $titlefont_size, 0,700 , 430,$textcolor,$font, $operational2);
             // imagettftext($img, $titlefont_size, 0,1060 , 430,$textcolor,$font, $code2);
             imagettftext($img, $titlefont_size, 0,1200 , 430,$textcolor,$font, $adv2);
-            imagettftext($img, $titlefont_size, 0,1450 , 430,$textcolor,$font, $adv12);
+            // imagettftext($img, $titlefont_size, 0,1450 , 430,$textcolor,$font, $adv12);
 
             imagettftext($img, $titlefont_size, 0,100 , 460,$textcolor,$font, $id3);
             imagettftext($img, $titlefont_size, 0,250 , 460,$textcolor,$font, $name3);
@@ -244,7 +250,7 @@
             imagettftext($img, $titlefont_size, 0,700 , 460,$textcolor,$font, $operational3);
             // imagettftext($img, $titlefont_size, 0,1060 , 460,$textcolor,$font, $code3);
             imagettftext($img, $titlefont_size, 0,1200 , 460,$textcolor,$font, $adv3);
-            imagettftext($img, $titlefont_size, 0,1450 , 460,$textcolor,$font, $adv13);
+            // imagettftext($img, $titlefont_size, 0,1450 , 460,$textcolor,$font, $adv13);
 
             imagettftext($img, $titlefont_size, 0,100 , 490,$textcolor,$font, $id4);
             imagettftext($img, $titlefont_size, 0,250 , 490,$textcolor,$font, $name4);
@@ -252,7 +258,7 @@
             imagettftext($img, $titlefont_size, 0,700 , 490,$textcolor,$font, $operational4);
             // imagettftext($img, $titlefont_size, 0,1060 , 490,$textcolor,$font, $code4);
             imagettftext($img, $titlefont_size, 0,1200 , 490,$textcolor,$font, $adv4);
-            imagettftext($img, $titlefont_size, 0,1450 , 490,$textcolor,$font, $adv14);
+            // imagettftext($img, $titlefont_size, 0,1450 , 490,$textcolor,$font, $adv14);
 
             imagettftext($img, $titlefont_size, 0,100 , 520,$textcolor,$font, $id5);
             imagettftext($img, $titlefont_size, 0,250 , 520,$textcolor,$font, $name5);
@@ -260,7 +266,7 @@
             imagettftext($img, $titlefont_size, 0,700 , 520,$textcolor,$font, $operational5);
             // imagettftext($img, $titlefont_size, 0,1060 , 520,$textcolor,$font, $code5);
             imagettftext($img, $titlefont_size, 0,1200 , 520,$textcolor,$font, $adv5);
-            imagettftext($img, $titlefont_size, 0,1450 , 520,$textcolor,$font, $adv15);
+            // imagettftext($img, $titlefont_size, 0,1450 , 520,$textcolor,$font, $adv15);
 
 
 
@@ -271,7 +277,7 @@
             
             imageline($img,5,535,1800,535,$textcolor);
 
-            imagettftext($img, $titlefont_size,0,10 , 557, $textcolor ,$fontbold , $nme23);
+            imagettftext($img, 20,0,10 , 557, $textcolor ,$fontbold , $nme23);
 
             imagettftext($img, $titlefont_size,0,10 , 590, $textcolor ,$fontbold , $nme24);
             imagettftext($img, $titlefont_size,0,400 , 590, $textcolor ,$font , $txt24)
@@ -338,6 +344,7 @@
             }
     		
 		}
+        
 
 		// $check = 'SELECT COUNT(*) AS total FROM image_record WHERE assign_id = 0';
 		// $sql = mysqli_query($conn,$check);
@@ -369,6 +376,9 @@
 
 
 	}
+    else{
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+      }
 ?>
 <!DOCTYPE html>
 <html>

@@ -92,21 +92,29 @@
       $name = $_POST['name'];
       $pass = $_POST['pass'];
   
-      $sql = "SELECT * FROM register where fname = '".$name."' AND password = '".$pass."' ";
-  
+      $sql = "SELECT * FROM register where fname = '".$name."'AND password = '".$pass."'";
+       $sql1 = "SELECT * FROM register where user_type = 'client'";
       $result = mysqli_query($conn,$sql);
-      
-      if($row = mysqli_fetch_assoc($result))
+      $r = mysqli_query($conn,$sql1);
+     
+      if($row = mysqli_fetch_assoc($result) AND mysqli_fetch_assoc($r))
       {
         $_SESSION['is_loggedin'] = true;
         $_SESSION['user_name'] = $_POST['name'];
         $_SESSION['user_type'] = $row['user_type'];
         $_SESSION['user_id'] = $row['id'];
-        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
+        $rows = $db->update('register',['is_loggedin' => 1],['fname' => $name , 'password' => $pass])->affectedRows();
+        if($row['user_type']=='client'){
+          header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/work.php");
+        }
+        else{
+          header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/index.php");
+        }
+        
       }
       else
       {
-        echo "Your Name and Password does not match !";
+        echo "Your Name and Password does not match Or Another User Is Already Logged In !";
       }
   }
 ?>

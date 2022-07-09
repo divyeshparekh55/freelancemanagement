@@ -1,12 +1,20 @@
 <?php
+session_start();
+
+if($_SESSION['user_type'] !== 'admin') {
+    session_unset();
+    header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+}
+
   include_once './config.php';
 
   include_once '../config/config.php';
 
+  $total_user = $db->pdoQuery('select count(id) as totaluser from register')->result();
+  $total_images = $db->pdoQuery('select count(id) as totalimage from image_record')->result();
+
   include_once './header.php';
-  
- 
-  
+
 ?>
 
 <!DOCTYPE html>
@@ -58,14 +66,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo $total_user['totaluser']; ?></h3>
 
-                <p>New Orders</p>
+                <p>Users</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="data.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -73,9 +81,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo $total_images['totalimage']; ?></h3>
 
-                <p>Bounce Rate</p>
+                <p>Images</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
