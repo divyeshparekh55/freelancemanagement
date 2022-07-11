@@ -121,8 +121,10 @@ class PDOHelper {
      * Show Error to user
      */
      public function error(){
-        $style = "style='color:#333846; border:1px solid #777; padding:2px; background-color: #FFC0CB;'";
-        die( "<div $style >ERROR: error occurred. Please, Check you error log file.</div>" );
+        if(ENVIRONMENT == 'd'){
+            $style = "style='color:#333846; border:1px solid #777; padding:2px; background-color: #FFC0CB;'";
+            die( "<div $style >ERROR: error occurred. Please, Check you error log file.</div>" );
+        }
     }
     /**
      * Show Error Array Data and stop code execution

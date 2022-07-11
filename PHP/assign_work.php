@@ -1,11 +1,13 @@
 <?php
     session_start();
-    include_once './config.php';
-    include_once './header.php';
     if($_SESSION['user_type'] !== 'admin') {
         session_unset();
         header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
     }
+
+	include_once './header.php';
+	include_once './config.php';
+	require_once '../vendor/autoload.php'; 
 
 	if(isset($_POST['sub']))
 	{
@@ -13,8 +15,6 @@
 		$current_user_id = $_POST["user_id"];
         $titlefont_size = 14;
         $date = $_POST['date'];
-
-        $faker = Faker\Factory::create();
        /* $years = array('1996','1997','1998','1999','2000','2001','2002','2003','2004');
         print_r($years);
         exit();*/
@@ -376,6 +376,9 @@
 
 
 	}
+    else{
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+      }
 ?>
 <!DOCTYPE html>
 <html>

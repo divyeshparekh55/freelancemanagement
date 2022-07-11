@@ -119,6 +119,11 @@
     width: 6px;
 }
 
+.example-1 {
+    position: relative;
+    overflow-y: scroll;
+    height: 200px;
+}
   </style>
 
     <?php   
@@ -127,7 +132,8 @@
       session_unset();        
       header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
     }
-    include_once 'header.php';    
+    
+    include_once 'header.php';
     date_default_timezone_set("Asia/Calcutta");
 
     $timestamp = time();
@@ -187,7 +193,7 @@
         <div class="container-fluid">
             <div class="alert alert-warning alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <h5><i class="icon fas fa-exclamation-triangle"></i> Warning!</h5>
+              <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
                 <ul>
               <?php foreach ($notifications as $key => $value) {
                 echo "<li>".$value['message']."</li>"; } ?>
@@ -227,13 +233,18 @@
                 <!-- Date and time -->
                  <div class="form-group">
                   <label>Date and time:</label>
-                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest" >
-                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" disabled="disabled" value="<?php echo "$date_time"; ?>" name="date"/>
-                      <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                      </div>
-                  </div>
-                  
+                    <div class="input-group date" id="reservationdatetime" data-target-input="nearest" >
+                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" disabled="disabled" value="<?php echo "$date_time"; ?>" name="date"/>
+                        <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div> 
+                
+                
+
+               
+                <div class="form-group">
                   <label>Select Work Image</label>
                   <br>
                   <select class="form-control select2" name="imageselect" id="imageselect" style="width: 100%;">
@@ -246,15 +257,8 @@
                     ?></div>
                   </select>
 
-                </div> 
                 
-                
-
-<!--                
-                <div class="form-group">
-                  
-                
-                </div> -->
+                </div>
               </div>
               <!-- /.col -->
               <div class="col-md-4">
@@ -296,33 +300,42 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
+                          <label>Serial Number</label>
                           <input type="text" class="form-control" id="serialnumber" name="serialnumber" placeholder="Enter Serial Number">
                         </div>
                         <div class="form-group">
+                          <label>Business Id</label>
                           <input type="text" class="form-control" id="businessid" name="businessid" placeholder="Enter Business Id">
                         </div>
                         <div class="form-group">
+                          <label>Analysis Year</label>
                           <input type="text" class="form-control" id="analysisyear" name="analysisyear" placeholder="Enter Analysis Year">
                         </div>
                         <div class="form-group">
+                          <label>Branch Location #1</label>
                           <input type="text" class="form-control" id="branchlocation1" name="branchlocation1" placeholder="Enter Branch Location 1">
                         </div>
                         <div class="form-group">
+                          <label>Branch Location #3</label>
                           <input type="text" class="form-control" id="branchlocation3" name="branchlocation3" placeholder="Enter Branch Location 3">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
+                          <label>File Number</label>
                           <input type="text" class="form-control" id="filenumber" name="filenumber" placeholder="Enter File Number">
                         </div>
                         <div class="form-group">
+                          <label>Account Id</label>
                           <input type="text" class="form-control" id="accountid" name="accountid" placeholder="Enter Account Id">
                         </div>
                         
                         <div class="form-group">
+                          <label>Branch Location #2</label>
                           <input type="text" class="form-control" id="branchlocation2" name="branchlocation2" placeholder="Enter Branch Location 2">
                         </div>
                         <div class="form-group">
+                          <label>Branch Location #4</label>
                           <input type="text" class="form-control" id="branchlocation4" name="branchlocation4" placeholder="Enter Branch Location 4">
                         </div>
 
@@ -334,31 +347,24 @@
                   <!-- Stack Holder -->
                   <div class="card-body">
                   <?php for ($i=1; $i <= 5; $i++) { ?>
+                    <div class="card actionsdiv card-default">
+                      <div class="card-header">
+                        <h3 class="card-title">#<?php echo $i; ?></h3>
+                        <div class="card-tools">
+                        </div>
+                      </div>
+                      <div class="card-body">
                         <div class="row">                        
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">ID <?php echo $i; ?></label> -->
                               <input type="text" class="form-control" id="id<?php echo $i; ?>" name="id<?php echo $i; ?>" placeholder=" ID <?php echo $i; ?>">
-                            </div>
-                          </div>
-                          <div class="col-md-2">
-                            <div class="form-group">
-                              <!-- <label id="section1">Name <?php echo $i; ?></label> -->
-                              <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" placeholder="Name <?php echo $i; ?>">
-                            </div>
-                          </div>
+                            </div></div>
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">Contact Number <?php echo $i; ?></label> -->
                               <input type="text" class="form-control" id="contact<?php echo $i; ?>" name="contact<?php echo $i; ?>" placeholder=" Contact Number <?php echo $i; ?>">
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <!-- <label id="section1">Operational Area <?php echo $i; ?></label> -->
-                              <input type="text" class="form-control" id="operationalarea<?php echo $i; ?>" name="operationalarea<?php echo $i; ?>" placeholder="Operational Area <?php echo $i; ?>">
-                            </div>
-                          </div>
+                            </div></div>
                           <div class="col-md-2">
                             <div class="form-group">
                               <!-- <label id="section1">Advisor #1</label> -->
@@ -366,7 +372,21 @@
                             </div>
                           </div> 
 
+                          <div class="col-md-2">
+                          <div class="form-group">
+                              <!-- <label id="section1">Name <?php echo $i; ?></label> -->
+                              <input type="text" class="form-control" id="name<?php echo $i; ?>" name="name<?php echo $i; ?>" placeholder="Name <?php echo $i; ?>">
+                            </div></div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <!-- <label id="section1">Operational Area <?php echo $i; ?></label> -->
+                              <input type="text" class="form-control" id="operationalarea<?php echo $i; ?>" name="operationalarea<?php echo $i; ?>" placeholder="Operational Area <?php echo $i; ?>">
+                            </div>
+                            
+                          </div>
                         </div>
+                      </div>
+                    </div>
                     <?php } ?>
                     <!-- <div class="col-md-6">
                       <div class="form-group">
@@ -383,37 +403,47 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
+                          <label>Cash & Equivalents</label>
                           <input type="text" class="form-control" id="cashandequivalents" name="cashandequivalents" placeholder="Enter Cash & Equivalents">
                         </div>
                         <div class="form-group">
+                          <label>Inventory</label>
                           <input type="text" class="form-control" id="inventory" name="inventory" placeholder="Enter Inventory">
                         </div>
                         <div class="form-group">
+                          <label>Total Current Assets</label>
                           <input type="text" class="form-control" id="totcurrentassets" name="totcurrentassets" placeholder="Enter Total Current Assets">
                         </div>
                         <div class="form-group">
+                          <label>Net Fixed Assets</label>
                           <input type="text" class="form-control" id="netfixedassets" name="netfixedassets" placeholder="Enter Net Fixed Assets">
                         </div>
                         <div class="form-group">
-                          <input type="text" class="form-control" id="othernoncurrentassets" name="othernoncurrentassets" placeholder="Enter Other Non Current Assets">
+                          <label>Other Non Current Assets</label>
+                          <input type="text" class="form-control" id="othercurrentassets" name="othercurrentassets" placeholder="Enter Other Non Current Assets">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
+                          <label>Trade Account Receivable</label>
                           <input type="text" class="form-control" id="tradeaccrec" name="tradeaccrec" placeholder="Enter Trade Account Receivable">
                         </div>
                         <div class="form-group">
+                          <label>Other Current Assets</label>
                           <input type="text" class="form-control" id="othercurrentassets" name="othercurrentassets" placeholder="Enter Other Current Assets">
                         </div>
                         
                         <div class="form-group">
+                          <label>Long Term Investments</label>
                           <input type="text" class="form-control" id="longterminv" name="longterminv" placeholder="Enter Long Term Investments">
                         </div>
                         <div class="form-group">
+                          <label>Intangible Assets</label>
                           <input type="text" class="form-control" id="intgassets" name="intgassets" placeholder="Enter Intangible Assets">
                         </div>
 
                         <div class="form-group">
+                          <label>Total Assets</label>
                           <input type="text" class="form-control" id="totalassets" name="totalassets" placeholder="Enter Total Assets">
                         </div>
 
@@ -449,7 +479,7 @@
 
   var today = new window.Date().toISOString().split('T')[0];
   document.getElementsByName("date")[0].setAttribute('min', today);
-                    
+
   
 
   $(document).ready(() => {
@@ -481,11 +511,6 @@
     $('#resetBtn').on('click',() => {
       $('#workform').trigger("reset");
     })
-
-    $('body').bind('copy paste',function(e) {
-      e.preventDefault(); return false; 
-    });
-
 
   })
 </script>

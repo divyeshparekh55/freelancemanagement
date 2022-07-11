@@ -21,8 +21,5 @@
   "license": "MIT",
   "support": {
     "issues": "https://github.com/ColorlibHQ/AdminLTE/issues"
-  },
-  "require": {
-    "fakerphp/faker": "^1.19"
   }
 }
