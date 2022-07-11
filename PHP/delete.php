@@ -1,6 +1,5 @@
 <?php
 	include_once './config.php';
-	include_once './header.php';
 
 	if(isset($_POST['user_delete']))
 	{

@@ -28,6 +28,14 @@ if($_SESSION['user_type'] !== 'admin') {
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/css/adminlte.min.css">
+
+  <style>
+    .actionbtnforms {
+      float:left;
+      margin:5px;
+    }
+  </style>
+
 </head>
 <body class="hold-transition sidebar-mini">
   
@@ -83,10 +91,7 @@ if($_SESSION['user_type'] !== 'admin') {
                   <tr>
                     <th>Id</th>
                     <th>First Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
                     <th>Password</th>
-                    <th>Phone Number</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -101,18 +106,15 @@ if($_SESSION['user_type'] !== 'admin') {
                             <tr>
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['fname']; ?> </td>
-                        <td> <?php echo $row['email']; ?> </td>
-                        <td> <?php echo $row['address']; ?> </td>
                         <td> <?php echo $row['password']; ?> </td>
-                        <td> <?php echo $row['phone_number']; ?> </td>
                         <td>
-                          <form method="POST" action="./edit.php">
+                          <form class="actionbtnforms" method="POST" action="./edit.php" >
                           <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
                           <button class="btn btn-primary" name="edit_btn">Edit</button></form>
-                          <form method="POST" action="./delete.php">
+                          <form class="actionbtnforms" method="POST" action="./delete.php">
                           <input type="hidden" name="user_delete" value="<?php echo $row['id']; ?>">
                           <button class="btn btn-danger" name="delete">Delete</button></form>    
-                          <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
+                          <form class="actionbtnforms" method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
                             <button class="btn btn-success" name="assign">Assign Work</button>
                           </form>    
                           </td>
@@ -195,14 +197,6 @@ if($_SESSION['user_type'] !== 'admin') {
       "searching": true,
       "ordering": true,
       "responsive": true,
-      "buttons": [
-            {
-                text: 'Add User',
-                action: function ( e, dt, node, config ) {
-                    window.location.href = "register.php";  
-                }
-            }
-        ]
       });
     })
 </script>

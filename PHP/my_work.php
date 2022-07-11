@@ -79,8 +79,11 @@
                   </t>
 
                     <?php
-					$user_id = $_SESSION['user_id'];
+					           $user_id = $_SESSION['user_id'];
 
+                     $work_list = $db->select('image_submit',['*'],['user_id'=>$user_id])->results();
+                     print_r($work_list);
+                     exit;
                      $sql = "SELECT * FROM image_submit WHERE user_id='$user_id' ";
                      $result = mysqli_query($conn,$sql);
                       while($row = mysqli_fetch_assoc($result))
@@ -177,7 +180,6 @@
       "autoWidth": false,
       "responsive": true,
     });
-  });
 </script>
 
 </body>

@@ -1,6 +1,6 @@
 <?php
   include_once '../config/config.php';
-  
+  require_once '../vendor/autoload.php';
   $usertype=null;
   if(!isset($_SESSION)) 
   { 
