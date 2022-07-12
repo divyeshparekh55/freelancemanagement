@@ -63,26 +63,10 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="./index.php" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
       <li class="nav-item">
         <a class="nam-link" role="button" href="./logout.php">LOGOUT
         </a>
@@ -150,16 +134,28 @@
               </p>
             </a>
           </li>
+        <?php } ?>
 
-          <li class="nav-item <?php echo $usertype == 'client' ? '' : 'hide'; ?>">
-            <a href="my_work.php" class="nav-link">
-              <i class="nav-icon fas "></i>
-              <p>
-                My Work
-              </p>
-            </a>
-          </li>
+          <?php if($usertype == 'client') { ?>
+            <li class="nav-item">
+              <a href="my_work.php" class="nav-link">
+                <i class="nav-icon fa fa-check"></i>
+                <p>
+                  My Work
+                </p>
+              </a>
+            </li>
+          <?php } ?>
 
+          <?php if($usertype == 'client') {?>
+            <li class="nav-item">
+              <a href="my_notification.php" class="nav-link">
+                <i class="nav-icon fa fa-history"></i>
+                <p>
+                  My Notifications
+                </p>
+              </a>
+            </li>
           <?php } ?>
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">

@@ -83,10 +83,7 @@ if($_SESSION['user_type'] !== 'admin') {
                   <tr>
                     <th>Id</th>
                     <th>First Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
                     <th>Password</th>
-                    <th>Phone Number</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -101,10 +98,7 @@ if($_SESSION['user_type'] !== 'admin') {
                             <tr>
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['fname']; ?> </td>
-                        <td> <?php echo $row['email']; ?> </td>
-                        <td> <?php echo $row['address']; ?> </td>
                         <td> <?php echo $row['password']; ?> </td>
-                        <td> <?php echo $row['phone_number']; ?> </td>
                         <td>
                           <form method="POST" action="./edit.php">
                           <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">

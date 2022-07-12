@@ -226,10 +226,6 @@
               </div>
               <div class="col-md-4">
 
-                
-            
-              
-                
                 <!-- Date and time -->
                  <div class="form-group">
                   <label>Date and time:</label>

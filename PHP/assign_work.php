@@ -376,9 +376,6 @@
 
 
 	}
-    else{
-        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
-      }
 ?>
 <!DOCTYPE html>
 <html>
