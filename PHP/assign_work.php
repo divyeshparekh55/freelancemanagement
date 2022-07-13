@@ -8,6 +8,7 @@
 	include_once './header.php';
 	include_once './config.php';
 	require_once '../vendor/autoload.php'; 
+    $faker = Faker\Factory::create();
 
 	if(isset($_POST['sub']))
 	{

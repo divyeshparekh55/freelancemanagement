@@ -1,18 +1,7 @@
 <?php
 	include_once './config.php';
-
-	include_once './header.php';
-
-	
+	include_once './header.php';	
 ?>
-<?php
-	include_once './config.php';
-
-
-
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +24,7 @@
 
 					foreach($result as $row)
 					{
-						?>
-
-						
+						?>			
 
 		<form method="POST" action="update.php">
         <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">

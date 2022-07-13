@@ -74,6 +74,7 @@
                     <th>Image Name</th>
                     <th>Date</th>
 					<th>Options</th>
+					
                     
                   
                   </t>
@@ -93,10 +94,9 @@
                         
                         <td>
                           <form method="POST" action="./work.php">
-                          <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-outline-info" <?php if($current_date !== $row['work_date']) { ?> disabled <?php } ?> name="edit_btn">Edit</button></form>
-                          </td>
-                          
+							<input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+							<button class="btn btn-outline-info" <?php if($current_date !== $row['work_date']) { ?> disabled <?php } ?> name="edit_btn">Edit</button></form>
+                        </td>
                           
                       </tr>
                       <?php

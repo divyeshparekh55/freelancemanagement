@@ -150,16 +150,12 @@
       extract($_POST);
 
         $arr = array(
-                array('ID','Name','Contact Number','Operational Area','Advisor 1'),
-                array('$id1','$name1','$contact1','$operationalarea1','$advisor1f1'),
-                array('$id2','$name2','$contact2','$operationalare2','$advisor2f1'),
-                array('$id3','$name3','$contact3','$operationalare3','$advisor3f1'),
-                array('$id4','$name4','$contact4','$operationalare4','$advisor4f1'),
-                array('$id5','$name5','$contact5','$operationalare5','$advisor5f1')
-                
-
+                array($id1,$name1,$contact1,$operationalarea1,$advisor1f1),
+                array($id2,$name2,$contact2,$operationalarea2,$advisor2f1),
+                array($id3,$name3,$contact3,$operationalarea3,$advisor3f1),
+                array($id4,$name4,$contact4,$operationalarea4,$advisor4f1),
+                array($id5,$name5,$contact5,$operationalarea5,$advisor5f1)
         );
-
 
         $string = serialize($arr); 
 
@@ -168,10 +164,10 @@
 
       // $sql = "INSERT INTO image_submit(user_id,work_date,serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$user_id','$date_time','$serialnumber','$businessid','$analysisyear','$branchlocation1','$branchlocation2','$branchlocation3','$branchlocation4','$filenumber','$accountid','$string','$cashandequivalents','$inventory','$totcurrentassets','$netfixedassets','$tradeaccrec','$othernoncurrentassets','$longterminv','$intgassets','$totalassets')";
 
-      $db->insert('image_submit',array('user_id'=>$user_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
+      $sql = $db->insert('image_submit',array('user_id'=>$user_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
       
       
-      if($result = mysqli_query($conn,$sql)) {
+      if($sql) {
             echo " Successfully Created";
       } else {
             echo "Something went wrong";

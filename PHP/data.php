@@ -82,13 +82,19 @@ if($_SESSION['user_type'] !== 'admin') {
                 <thead>
                   <tr>
                     <th>Id</th>
-                    <th>First Name</th>
+                    <th>User Name</th>
                     <th>Password</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
+                    if(isset($_POST['message'])){
+                      $userId = $_POST['user_id'];
+                      $_SESSION['userMessageId'] = $userId;
+                      print_r($userId);
+                      exit(); 
+                    }
                      $sql = "SELECT * FROM register";
                      $result = mysqli_query($conn,$sql);
                       while($row = mysqli_fetch_assoc($result))
@@ -108,7 +114,9 @@ if($_SESSION['user_type'] !== 'admin') {
                           <button class="btn btn-danger" name="delete">Delete</button></form>    
                           <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
                             <button class="btn btn-success" name="assign">Assign Work</button>
-                          </form>    
+                          </form> 
+                           <button type="button" class="btn btn-warning" name="message" ><a href="user_msg.php?user_id=<?php echo $row['id']; ?>">Message</a></button>   
+                           <button type="button" class="btn btn-info"><a href="result.php?id=<?php echo $row['id']; ?>">Download Result</a></button>
                           </td>
                           
                       </tr></tbody>

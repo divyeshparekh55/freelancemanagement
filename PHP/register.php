@@ -403,20 +403,7 @@
           </div>
         </div>
 
-        <div class="form-group">
-      <div class="col-xs-2">
-      <select class="form-select form-select-sm" name="count">
-          <option selected>Open to select numbers of image</option>
-          <option>1</option>
-        <option>10</option>
-        <option>20</option>
-        <option>30</option>
-        <option>40</option>
-        <option>50</option>
-        <option>100</option>
-      </select>
-      </div>
-      </div>
+        
 
       
       
@@ -425,7 +412,7 @@
           
           <!-- /.col -->
           <div class="col-4">
-            <button type="Clear" class="btn btn-outline-danger">Clear</button>
+            <button type="button" class="btn btn-outline-danger"><a href="data.php">Back</a></button>
           </div>
 
           <div class="col-4">
