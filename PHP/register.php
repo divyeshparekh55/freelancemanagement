@@ -2,6 +2,7 @@
 
   include_once 'config.php';
   include_once '../config/config.php';
+  include_once './header.php';
 
   if(isset($_POST['register']))
   {
@@ -25,7 +26,6 @@
 
   }
 
-  include_once 'header.php ';
 ?>
 
 

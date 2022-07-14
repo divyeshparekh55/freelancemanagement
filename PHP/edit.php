@@ -15,9 +15,9 @@
       
 
      		<?php
-     			if(isset($_POST['edit_btn']))
+     			if(isset($_GET['id']))
 				{		
-					$id = $_POST['edit_id'];
+					$id = $_GET['id'];
 
 					$sql = "SELECT * FROM register WHERE id ='$id' ";
 					$result = mysqli_query($conn,$sql);

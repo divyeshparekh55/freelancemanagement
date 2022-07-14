@@ -12,6 +12,7 @@
 
 	if(isset($_POST['sub']))
 	{
+        $faker = Faker\Factory::create();
 		$count = (int)$_POST['count'];
 		$current_user_id = $_POST["user_id"];
         $titlefont_size = 14;
@@ -24,7 +25,7 @@
 
         // random year between 1996 to 2004
         $rand_year = rand(1996,2004);
-
+        $image_created = false;
 		for ($i = 1; $i<=$count; $i++)
 		{
             $indexx = rand(1,8);
@@ -320,31 +321,19 @@
             $randomname = rand(1000000,10000000);
     		imagepng($img,'./' . $randomname . image_type_to_extension(IMAGETYPE_PNG));
 
-    		// if($img)
-            // {
-            //     echo "Image Created Successfully";
-            // }
-            // else
-            // {
-            //     echo "Something Went Wrong";
-            // }
-
             $string = serialize($arr); 
   
-            $newvar = unserialize($string);
-
-            $sql = "INSERT INTO image_record(serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,branch_location5,branch_location6,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes,assign_id,image_name,work_assign_date) VALUES('$txt1','$txt2','$txt3','$txt4','$txt10','$txt5','$txt11','','','$txt12','$txt13','$string','$txt24','$txt25','$txt26','$txt27','$txt28','$txt29','$txt30','$txt31','$txt32','$txt33','$current_user_id','$randomname.png','$date') ";
+            $lastid = $db->insert('image_record',['serial_number'=>$txt1,'business_id'=>$txt2,'analysis_year'=>$txt3,'branch_location1'=>$txt4,'branch_location2'=>$txt10,'branch_location3'=>$txt5,'branch_location4'=>$txt11,'branch_location5'=>'','branch_location6'=>'','file_number'=>$txt12,'accountant_id'=>$txt13,'stackholder'=>$string,'cash_equivalents'=>$txt24,'invtory'=>$txt25,'total_current_assets'=>$txt26,'net_fixed_assets'=>$txt27,'other_non_current_assets'=>$txt28,'trade_accounts_receivable'=>$txt29,'other_current_assets'=>$txt30,'long_term_investments'=>$txt31,'intangible_assets'=>$txt32,'total_asstes'=>$txt33,'assign_id'=>$current_user_id,'image_name'=>$randomname.'.png','work_assign_date'=>$date])->getLastInsertId();
             
-            if($result = mysqli_query($conn,$sql))
-            {
-                echo "<script>alert('Successfully Image Created');</script>";
+            if($lastid) {
+                $image_created = true;
             }
-            else
-            {
-                echo "Something went wrong";
-            }
-    		
+            
 		}
+
+        if($image_created) {
+            echo "<script>alert('Successfully Image Created');</script>";
+        }
         
 
 		// $check = 'SELECT COUNT(*) AS total FROM image_record WHERE assign_id = 0';

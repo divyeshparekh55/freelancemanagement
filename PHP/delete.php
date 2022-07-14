@@ -1,10 +1,9 @@
 <?php
 	include_once './config.php';
-	include_once './header.php';
-
-	if(isset($_POST['user_delete']))
+	
+	if(isset($_GET['id']))
 	{
-		$user_id = $_POST['user_delete'];
+		$user_id = $_GET['id'];
 
 		$query = "DELETE FROM register WHERE id='$user_id' ";
 		$result = mysqli_query($conn,$query);

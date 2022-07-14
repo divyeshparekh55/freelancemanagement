@@ -57,9 +57,6 @@
                 {data:'message'}
             ],
             data: data,
-            buttons: [
-                 'pdf'
-            ]
         })
     })
 </script>

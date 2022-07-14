@@ -28,6 +28,11 @@ if($_SESSION['user_type'] !== 'admin') {
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/css/adminlte.min.css">
+  <style>
+    .btn {
+      margin: 5px;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
   
@@ -78,54 +83,6 @@ if($_SESSION['user_type'] !== 'admin') {
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
-          
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>User Name</th>
-                    <th>Password</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php
-                    if(isset($_POST['message'])){
-                      $userId = $_POST['user_id'];
-                      $_SESSION['userMessageId'] = $userId;
-                      print_r($userId);
-                      exit(); 
-                    }
-                     $sql = "SELECT * FROM register";
-                     $result = mysqli_query($conn,$sql);
-                      while($row = mysqli_fetch_assoc($result))
-                         {
-                            ?>
-                            <tbody>
-                            <tr>
-                        <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['fname']; ?> </td>
-                        <td> <?php echo $row['password']; ?> </td>
-                        <td>
-                          <form method="POST" action="./edit.php">
-                          <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-primary" name="edit_btn">Edit</button></form>
-                          <form method="POST" action="./delete.php">
-                          <input type="hidden" name="user_delete" value="<?php echo $row['id']; ?>">
-                          <button class="btn btn-danger" name="delete">Delete</button></form>    
-                          <form method="POST" action="./assign_work.php?id=<?php echo $row['id']; ?>">
-                            <button class="btn btn-success" name="assign">Assign Work</button>
-                          </form> 
-                           <button type="button" class="btn btn-warning" name="message" ><a href="user_msg.php?user_id=<?php echo $row['id']; ?>">Message</a></button>   
-                           <button type="button" class="btn btn-info"><a href="download.php?id=<?php echo $row['id']; ?>">Download Result</a></button>
-                          </td>
-                          
-                      </tr></tbody>
-                      <?php
-                        }
-                        ?>
-                  </tr> 
-                </tbody>
-                  
                 </table>
               </div>
               <!-- /.card-body -->
@@ -190,21 +147,38 @@ if($_SESSION['user_type'] !== 'admin') {
 
 
 <!-- Page specific script -->
+
 <script>
+    <?php
+      $users = $db->select('register',['*'],['user_type'=>'client'])->results();
+    ?>
+
+    function editClick(id) {
+      window.location.href = 'edit.php?id='+id;
+    }
+
+    function deleteClick(id) {
+      window.location.href = 'delete.php?id='+id;
+    }
+
+    function assignClick(id) {
+      window.location.href = 'assign_work.php?id='+id;
+    }
+
     $(document).ready(() => {
+
       $('#example2').DataTable({
-      "paging": true,
-      "searching": true,
-      "ordering": true,
-      "responsive": true,
-      "buttons": [
+        aoColumns: [
+            { "mData": "id", "sTitle": "Id" },
+            { "mData": "fname", "sTitle": "User Name" },
+            { "mData": "password","sTitle": "Pass Word"},
             {
-                text: 'Add User',
-                action: function ( e, dt, node, config ) {
-                    window.location.href = "register.php";  
-                }
+                "mData": null,
+                 "mRender": function (o) {
+                   return '<button class="btn btn-primary" name="edit_btn" onclick="editClick('+o.id+')">Edit</button><button class="btn btn-danger" name="delete" onclick="deleteClick('+o.id+')" >Delete</button><button class="btn btn-success" name="assign" onclick="assignClick('+o.id+')">Assign Work</button>'; }
             }
-        ]
+        ],
+        data: <?php echo json_encode($users); ?>,
       });
     })
 </script>
