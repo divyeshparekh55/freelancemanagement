@@ -29,6 +29,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Date</th>
               <th>Notifications</th>
             </tr>
           </thead>
@@ -52,6 +53,7 @@
         $('#notificationtable').DataTable({
             columns: [
                 {data:'id'},
+                {data:'date'},
                 {data:'message'}
             ],
             data: data,

@@ -89,7 +89,7 @@
                             ?>
                             <tr>
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['image_name']; ?> </td>
+                        <td> <?php echo $row['image_id']; ?> </td>
                         <td> <?php echo $row['work_date']; ?> </td>
                         
                         <td>

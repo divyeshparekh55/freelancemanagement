@@ -164,7 +164,7 @@
 
       // $sql = "INSERT INTO image_submit(user_id,work_date,serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$user_id','$date_time','$serialnumber','$businessid','$analysisyear','$branchlocation1','$branchlocation2','$branchlocation3','$branchlocation4','$filenumber','$accountid','$string','$cashandequivalents','$inventory','$totcurrentassets','$netfixedassets','$tradeaccrec','$othernoncurrentassets','$longterminv','$intgassets','$totalassets')";
 
-      $sql = $db->insert('image_submit',array('user_id'=>$user_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
+      $sql = $db->insert('image_submit',array('user_id'=>$user_id,'image_id'=>$image_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
       
       
       if($sql) {
@@ -223,7 +223,6 @@
 
                 <!-- Date and time -->
                  <div class="form-group">
-                  
                     <div class="input-group date" id="reservationdatetime" data-target-input="nearest" >
                         <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" disabled="disabled" value="<?php echo "$date_time"; ?>" name="date"/>
                         <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
@@ -232,18 +231,15 @@
                     </div>
                 </div> 
                 
-                
-
                
                 <div class="form-group">
                   
                   <br>
-                  <select class="form-control select2" name="imageselect" id="imageselect" style="width: 100%;">
+                  <select class="form-control select2" name="imageselect" id="imageselect" style="width: 100%;" >
                     <option>Select</option>
-
                     <?php 
                       foreach ($images as $key => $value) {
-                        echo "<option value=".$value['image_name'].">".$value['image_name']."</option>";
+                        echo "<option value=".$value['image_name']." data-opt=".$value['id'].">".$value['image_name']."</option>";
                       }
                     ?></div>
                   </select>
@@ -291,7 +287,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          
+                          <input type="hidden" id="imageId" name="image_id" >     
                           <input type="text" class="form-control" id="serialnumber" name="serialnumber" placeholder="Enter Serial Number">
                         </div>
                         <div class="form-group">
@@ -474,10 +470,10 @@
   var today = new window.Date().toISOString().split('T')[0];
   document.getElementsByName("date")[0].setAttribute('min', today);
 
-  
-
   $(document).ready(() => {
     $('#imageselect').on('change',(e) => {
+      var element = $("option:selected", e.target);
+      $('#imageId').val(element.attr("data-opt"));
       if(e.target.value !== "Select") {
         $('[data-widget="pushmenu"]').PushMenu("collapse");
         $(".actionsdiv").removeClass('hide');
@@ -488,6 +484,11 @@
 
     });
 
+    const setImageId = (event) => {
+      alert('called')
+      let value = event?.target?.value;
+      console.log(value);
+    }
     $('#submitBtn').on('click',() => {
         $.ajax({
           url: "work_back.php",

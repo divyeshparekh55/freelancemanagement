@@ -116,7 +116,7 @@ if($_SESSION['user_type'] !== 'admin') {
                             <button class="btn btn-success" name="assign">Assign Work</button>
                           </form> 
                            <button type="button" class="btn btn-warning" name="message" ><a href="user_msg.php?user_id=<?php echo $row['id']; ?>">Message</a></button>   
-                           <button type="button" class="btn btn-info"><a href="result.php?id=<?php echo $row['id']; ?>">Download Result</a></button>
+                           <button type="button" class="btn btn-info"><a href="download.php?id=<?php echo $row['id']; ?>">Download Result</a></button>
                           </td>
                           
                       </tr></tbody>
