@@ -1,4 +1,15 @@
-<?php include_once 'config.php'; ?>
+<?php 
+  include_once 'config.php';
+
+  include_once '../config/config.php';
+
+session_start();
+
+if($_SESSION['user_type'] !== 'client') {
+    session_unset();
+    header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+}
+?>
 
 
 <!DOCTYPE html>
@@ -127,11 +138,6 @@
   </style>
 
     <?php   
-    session_start();
-    if($_SESSION['user_type'] != 'client') {
-      session_unset();        
-      header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
-    }
     
     include_once 'header.php';
     date_default_timezone_set("Asia/Calcutta");
@@ -143,12 +149,12 @@
     if(isset($_SESSION['user_id'])) {
       $user_id = $_SESSION['user_id'];
       
-      $images = $db->select('image_record',['id','image_name'],['assign_id'=>$user_id,'work_assign_date'=>$date_time], 
+      $images = $db->select('image_record',['id','image_name'],['assign_id'=>$user_id,'work_assign_date'=>$date_time,'is_used'=>0], 
         ' LIMIT 100')->results();
     }    
     if(isset($_POST['submit'])) {
       extract($_POST);
-
+      
         $arr = array(
                 array($id1,$name1,$contact1,$operationalarea1,$advisor1f1),
                 array($id2,$name2,$contact2,$operationalarea2,$advisor2f1),
@@ -164,8 +170,9 @@
 
       // $sql = "INSERT INTO image_submit(user_id,work_date,serial_number,business_id,analysis_year,branch_location1,branch_location2,branch_location3,branch_location4,file_number,accountant_id,stackholder,cash_equivalents,invtory,total_current_assets,net_fixed_assets,other_non_current_assets,trade_accounts_receivable,other_current_assets,long_term_investments,  intangible_assets,total_asstes) VALUES('$user_id','$date_time','$serialnumber','$businessid','$analysisyear','$branchlocation1','$branchlocation2','$branchlocation3','$branchlocation4','$filenumber','$accountid','$string','$cashandequivalents','$inventory','$totcurrentassets','$netfixedassets','$tradeaccrec','$othernoncurrentassets','$longterminv','$intgassets','$totalassets')";
 
-      $sql = $db->insert('image_submit',array('user_id'=>$user_id,'image_id'=>$image_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets));
+      $sql = $db->insert('image_submit',array('user_id'=>$user_id,'image_id'=>$image_id,'work_date'=>$date_time,'serial_number'=>$serialnumber,'business_id'=>$businessid,'analysis_year'=>$analysisyear,'branch_location1'=>$branchlocation1,'branch_location2'=>$branchlocation2,'branch_location3'=>$branchlocation3,'branch_location4'=>$branchlocation4,'file_number'=>$filenumber,'accountant_id'=>$accountid,'stackholder'=>$string,'cash_equivalents'=>$cashandequivalents,'invtory'=>$inventory,'total_current_assets'=>$totcurrentassets,'net_fixed_assets'=>$netfixedassets,'other_non_current_assets'=>$othernoncurrentassets,'trade_accounts_receivable'=>$tradeaccrec,'other_current_assets'=>$othercurrentassets,'long_term_investments'=>$longterminv,'intangible_assets'=>$intgassets,'total_asstes'=>$totalassets))->getLastInsertId();
       
+      $update = $db->update('image_record',['is_used'=>1],['id'=>$image_id]);
       
       if($sql) {
             echo " Successfully Created";

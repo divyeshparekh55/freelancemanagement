@@ -1,5 +1,13 @@
 <?php
-    include("header.php");
+	session_start();
+
+	if($_SESSION['user_type'] !== 'admin') {
+		session_unset();
+		header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+	}
+
+    include_once "header.php";
+	
 	
 ?>
 <!DOCTYPE html>

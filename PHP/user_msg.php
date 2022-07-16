@@ -1,5 +1,12 @@
 
 <?php
+    session_start();
+
+    if($_SESSION['user_type'] !== 'admin') {
+        session_unset();
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+    }
+
     include_once '../config/config.php';
 
     date_default_timezone_set("Asia/Calcutta");

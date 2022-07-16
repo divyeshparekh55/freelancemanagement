@@ -1,5 +1,14 @@
+
 <?php
 	include_once 'config.php';
+	include_once '../config/config.php';
+
+	session_start();
+
+    if($_SESSION['user_type'] !== 'admin') {
+        session_unset();
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+    }
 
 if(isset($_POST['update']))
 	{

@@ -5,12 +5,13 @@
         header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
     }
 
-	include_once './header.php';
-	include_once './config.php';
+    include_once './config.php';
+    include_once '../config/config.php';
+
 	require_once '../vendor/autoload.php'; 
     $faker = Faker\Factory::create();
 
-	if(isset($_POST['sub']))
+    if(isset($_POST['sub']))
 	{
         $faker = Faker\Factory::create();
 		$count = (int)$_POST['count'];
@@ -327,12 +328,12 @@
             
             if($lastid) {
                 $image_created = true;
+                echo "<script>alert('Image Generated');</script>";
             }
-            
 		}
 
         if($image_created) {
-            echo "<script>alert('Successfully Image Created');</script>";
+            header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/data.php");
         }
         
 
@@ -366,16 +367,33 @@
 
 
 	}
+
+	include_once './header.php';
+
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/
+    4.0.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/
+    jquery/3.3.1/jquery.min.js">
+    </script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/
+    popper.js/1.12.9/umd/popper.min.js">
+    </script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/
+    4.0.0/js/bootstrap.min.js">
+    </script>
 </head>
 <body>
 	<center>
 				
-		<form method="POST">
+		<form method="POST" id="validation">
 		
 			<div class="card-body">
 			<div class="form-group">
@@ -383,7 +401,9 @@
 				<input type="text" disabled="disabled" name="user_assign" value="<?php echo $_GET['id']; ?>">
 				<input type="hidden"  name="user_id" value="<?php echo $_GET['id']; ?>">
                 <br>
-                <input type="date" id="date"  name="date" value="">
+                <input type="date" id="check_date"  name="date" value="">
+                <br>
+                    <label id="dateerr"></label>
                 <br>
 				<label>Select Number Of Image</label><br>
 			<select class="form-select form-select-sm" name="count">
@@ -406,7 +426,23 @@
 	</center>
 </body>
 <script>
+
     var today = new window.Date().toISOString().split('T')[0];
     document.getElementsByName("date")[0].setAttribute('min', today);  
+
+    $(document).ready(function() {
+    $("#validation").submit(function(e){
+
+        var check_date = $('#check_date').val();
+        $(".error").remove();
+        $('#dateerr').html();
+        if(check_date.length < 1)
+        {
+            e.preventDefault();
+            $('#dateerr').html('<span style="color: red;">Select The Date First</span>');
+        }
+  });
+});
+
 </script>
 </html>

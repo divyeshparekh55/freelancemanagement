@@ -1,4 +1,11 @@
 <?php
+  session_start();
+
+  if($_SESSION['user_type'] !== 'client') {
+      session_unset();
+      header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+  }
+
   include_once 'config.php';
   include_once '../config/config.php';
  
@@ -73,10 +80,7 @@
                     <th>Id</th>
                     <th>Image Name</th>
                     <th>Date</th>
-					<th>Options</th>
-					
-                    
-                  
+					          <th>Actions</th>
                   </t>
 
                     <?php
@@ -93,9 +97,10 @@
                         <td> <?php echo $row['work_date']; ?> </td>
                         
                         <td>
-                          <form method="POST" action="./work.php">
-							<input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
-							<button class="btn btn-outline-info" <?php if($current_date !== $row['work_date']) { ?> disabled <?php } ?> name="edit_btn">Edit</button></form>
+                          <?php if($current_date === $row['work_date']) { ?>
+                            <button class="btn btn-info" name="edit_btn" onclick="onEditClick(<?php echo $row['id']; ?>)">Edit</button>
+                            <button class="btn btn-warning" name="view_btn" onclick="onViewClick(<?php echo $row['id']; ?>)">View</button>
+                          <?php } ?>
                         </td>
                           
                       </tr>
@@ -163,6 +168,14 @@
 <script src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
+  function onEditClick(editId) {
+    window.location.href = "work.php?editId="+editId;
+  }
+
+  function onViewClick(viewId) {
+    window.location.href = "work.php?viewId="+viewId;
+  }
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

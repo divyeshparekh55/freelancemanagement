@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if($_SESSION['user_type'] !== 'client') {
+        session_unset();
+        header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
+    }
+
     include_once '../config/config.php';
     include_once './header.php';
 

@@ -28,9 +28,15 @@ if($_SESSION['user_type'] !== 'admin') {
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/css/adminlte.min.css">
+
   <style>
     .btn {
       margin: 5px;
+    }
+    .member {
+      margin:auto;
+      /* margin-left:600%; */
+
     }
   </style>
 </head>
@@ -54,21 +60,17 @@ if($_SESSION['user_type'] !== 'admin') {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active"></li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    <div class="col-2">
-    <button class="btn btn-outline-primary">
-    <a href="./register.php">Add Member</a>
-    </button></div>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -77,8 +79,12 @@ if($_SESSION['user_type'] !== 'admin') {
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">User Lists</h3>
-                
+                <h3 class="card-title"></h3>
+                <div class="col-2">
+      <div class="member">
+        <button type="button" class="btn btn-info" onclick="onMemberLocation()"> Add User</button>
+      </div>
+    </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -165,6 +171,13 @@ if($_SESSION['user_type'] !== 'admin') {
       window.location.href = 'assign_work.php?id='+id;
     }
 
+    function messageClick(id) {
+      window.location.href = 'user_msg.php?user_id='+id;
+    }
+
+    function downloadClick(id) {
+      window.location.href = 'download.php?id='+id;
+    }
     $(document).ready(() => {
 
       $('#example2').DataTable({
@@ -175,12 +188,16 @@ if($_SESSION['user_type'] !== 'admin') {
             {
                 "mData": null,
                  "mRender": function (o) {
-                   return '<button class="btn btn-primary" name="edit_btn" onclick="editClick('+o.id+')">Edit</button><button class="btn btn-danger" name="delete" onclick="deleteClick('+o.id+')" >Delete</button><button class="btn btn-success" name="assign" onclick="assignClick('+o.id+')">Assign Work</button>'; }
+                   return '<button class="btn btn-primary" name="edit_btn" onclick="editClick('+o.id+')">Edit</button><button class="btn btn-danger" name="delete" onclick="deleteClick('+o.id+')" >Delete</button><button class="btn btn-success" name="assign" onclick="assignClick('+o.id+')">Assign Work</button><button class="btn btn-warning" name="assign" onclick="messageClick('+o.id+')">Message</button><button class="btn btn-info" name="assign" onclick="downloadClick('+o.id+')">Download</button> '; }
             }
         ],
         data: <?php echo json_encode($users); ?>,
       });
     })
+
+    function onMemberLocation(memberLoation) {
+    window.location.href = "register.php";
+  }
 </script>
 
 </body>
