@@ -28,7 +28,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href=""><b>TEXTILE</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -54,12 +54,7 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
+            <button type="reset" class="btn btn-danger">Reset</button>
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -93,10 +88,12 @@
       $pass = $_POST['pass'];
   
       $sql = "SELECT * FROM register where fname = '".$name."'AND password = '".$pass."'";
-       $sql1 = "SELECT * FROM register where user_type = 'client'";
+       $sql1 = "SELECT * FROM register where user_type = 'sub_admin'";
+       $sql2 = "SELECT * FROM register";
       $result = mysqli_query($conn,$sql);
       $r = mysqli_query($conn,$sql1);
-     
+      $rel = mysqli_query($conn,$sql2);
+
       if($row = mysqli_fetch_assoc($result) AND mysqli_fetch_assoc($r))
       {
         $_SESSION['is_loggedin'] = true;
@@ -104,7 +101,7 @@
         $_SESSION['user_type'] = $row['user_type'];
         $_SESSION['user_id'] = $row['id'];
         $rows = $db->update('register',['is_loggedin' => 1],['fname' => $name , 'password' => $pass])->affectedRows();
-        if($row['user_type']=='client'){
+        if($row['user_type']=='sub_admin'){
           header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/work.php");
         }
         else{

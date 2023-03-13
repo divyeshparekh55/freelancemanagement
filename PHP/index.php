@@ -10,8 +10,8 @@ if($_SESSION['user_type'] !== 'admin') {
 
   include_once '../config/config.php';
 
-  $total_user = $db->pdoQuery('select count(id) as totaluser from register')->result();
-  $total_images = $db->pdoQuery('select count(id) as totalimage from image_record')->result();
+  // $total_user = $db->pdoQuery('select count(id) as totaluser from register')->result();
+  // $total_images = $db->pdoQuery('select count(id) as totalimage from image_record')->result();
 
   include_once './header.php';
 
@@ -66,7 +66,7 @@ if($_SESSION['user_type'] !== 'admin') {
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?php echo $total_user['totaluser']; ?></h3>
+                <h3></h3>
 
                 <p>Users</p>
               </div>
@@ -81,7 +81,7 @@ if($_SESSION['user_type'] !== 'admin') {
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $total_images['totalimage']; ?></h3>
+                <h3></h3>
 
                 <p>Images</p>
               </div>
@@ -658,13 +658,9 @@ if($_SESSION['user_type'] !== 'admin') {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
-    </div>
-  </footer>
+  <!-- <footer class="main-footer">
+    
+  </footer> -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

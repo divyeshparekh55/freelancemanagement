@@ -67,12 +67,12 @@
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <!-- <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nam-link" role="button" href="./logout.php">LOGOUT
         </a>
       </li>
-    </ul>
+    </ul> -->
   </nav>
 
 	<ul class="navbar-nav ml-auto">
@@ -81,7 +81,7 @@
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
       <img src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLogin</span>
+      <span class="brand-text font-weight-light">TEXTILE</span>
     </a>
 
     <!-- Sidebar -->
@@ -89,7 +89,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/images/user_image.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           
@@ -114,50 +114,82 @@
             </li>
             
           <?php } ?>
+
+          
           
         <?php if($usertype == 'admin') { ?>
           <li class="nav-item">
             <a href="data.php" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
-              <p>
-                User List
-              </p>
+              <p><b>
+              Category
+              </b></p>
             </a>
           </li>
         <?php } ?>
 
-        <?php if($usertype == 'client') {?>
+        
+
+        <?php if($usertype == 'admin') { ?>
+          <li class="nav-item">
+            <a href="sub_ctgy.php" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p><b>
+             Sub Category
+             </b></p>
+            </a>
+          </li>
+        <?php } ?>
+
+
+        <?php if($usertype == 'sub_admin') {?>
           <li class="nav-item">
             <a href="work.php" class="nav-link">
-              <i class="nav-icon fas fa-clock"></i>
-              <p>
-                Start Work
-              </p>
+              <i class="nav-icon fas fa-images"></i>
+              <p><b>
+                Add Images
+                </b></p>
             </a>
           </li>
         <?php } ?>
 
-          <?php if($usertype == 'client') { ?>
-            <li class="nav-item">
-              <a href="my_work.php" class="nav-link">
-                <i class="nav-icon fa fa-check"></i>
-                <p>
-                  My Work
-                </p>
-              </a>
-            </li>
-          <?php } ?>
+        <?php if($usertype == 'sub_admin') {?>
+          <li class="nav-item">
+            <a href="create_pdf.php" class="nav-link">
+              <i class="nav-icon fas fa-fie-pdf"></i>
+              <p><b>
+                Create PDF
+                </b></p>
+            </a>
+          </li>
+        <?php } ?>
 
-          <?php if($usertype == 'client') {?>
-            <li class="nav-item">
-              <a href="my_notification.php" class="nav-link">
-                <i class="nav-icon fa fa-history"></i>
-                <p>
-                  My Notifications
-                </p>
-              </a>
-            </li>
-          <?php } ?>
+        <?php if($usertype == 'sub_admin') {?>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p><b>
+                Logout
+                </b></p>
+            </a>
+          </li>
+        <?php } ?>
+
+        <?php if($usertype == 'admin') {?>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p><b>
+                Logout
+              </b></p>
+            </a>
+          </li>
+        <?php } ?>
+
+        
+
+         
+   
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>

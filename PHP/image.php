@@ -1,14 +1,60 @@
 <?php
 session_start();
 
-if($_SESSION['user_type'] !== 'admin') {
-    session_unset();
-    header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
-}
-
-
   include_once 'config.php';
   include_once '../config/config.php';
+
+
+
+        if(isset($_POST['image_submit']) && isset($_FILES['img'])){
+            $image_name = $_FILES['img'];
+            $admin_id = $_SESSION['user_id'];
+
+            $ctgy_id = $_GET['ctgy_id'];
+
+            $num_of_imgs = count($image_name['name']);
+            for($i = 0; $i < $num_of_imgs; $i++){
+
+            
+            $img_name = $image_name['name'][$i];
+            $img_type = $image_name['type'][$i];
+            $img_tmp_name = $image_name['tmp_name'][$i];
+            $img_size = $image_name['size'][$i];
+            $error = $image_name['error'][$i];
+
+            if ($error === 0) {
+                if ($img_size > 1250000) {
+                    echo "Sorry, your file is too large.";
+                    echo '<script>alert("Sorry, your file is too large.")</script>';	
+                }else {
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_lc = strtolower($img_ex);
+        
+                    $allowed_exs = array("jpg", "jpeg", "png"); 
+        
+                    if (in_array($img_ex_lc, $allowed_exs)) {
+                        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                        $img_upload_path = 'upload_images/'.$new_img_name;
+                        move_uploaded_file($img_tmp_name, $img_upload_path);
+        
+                        $sql = "INSERT INTO upload_image(admin_id,category_id,img_nme,img_path) VALUES ('$admin_id','$ctgy_id','$new_img_name','$img_upload_path')";
+                        mysqli_query($conn, $sql);
+                    }else {
+                        echo "You can't upload files of this type";
+                        echo '<script>alert("you cannot upload this file")</script>';	
+                        
+                    }
+                }
+            }else {
+                // echo "unknown error occurred!";
+                echo '<script>alert("unknown error occurred!")</script>';	
+
+            }
+        }
+
+        }
+    // }
+
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +62,7 @@ if($_SESSION['user_type'] !== 'admin') {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data</title>
+  <title>AdminLTE 3 | DataTables</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,23 +76,30 @@ if($_SESSION['user_type'] !== 'admin') {
   <link rel="stylesheet" href="<?php echo SERVER_NAME."/".FOLDER_NAME; ?>/dist/css/adminlte.min.css">
 
   <style>
-    .btn {
+    /* .btn {
       margin: 5px;
     }
     .member {
       margin:auto;
-      /* margin-left:600%; */
+      margin-left:600%;
 
+    } */
+    .img-responsive{
+        float: left;
+    width:  230px;
+    height: 230px;
+    object-fit: cover;
+    margin: 0px 10px 20px 30px;
     }
   </style>
 </head>
 <body class="hold-transition sidebar-mini">
-  
+  <form method="POST" enctype="multipart/form-data">
 <div class="wrapper">
 <!-- Header Section  -->
 <?php 
   include_once './header.php';
-  if($_SESSION['user_type'] !== 'admin') {
+  if($_SESSION['user_type'] !== 'sub_admin') {
     session_unset();
     header("location:".SERVER_NAME."/".FOLDER_NAME."/PHP/login.php");
   } 
@@ -82,8 +135,9 @@ if($_SESSION['user_type'] !== 'admin') {
                 <h3 class="card-title"></h3>
                 <div class="col-2">
       <div class="member">
-        <button type="button" class="btn btn-info" onclick="onMemberLocation()"> Add Catogery </button>
-
+        <!-- <button type="button" class="btn btn-info" onclick="onMemberLocation()"> Add User</button> -->
+        <input type="file" class="form-control-md" name="img[]" multiple>
+        <input type="submit" class="btn btn-outline-info" value="Upload Images" name="image_submit">
       </div>
     </div>
               </div>
@@ -155,45 +209,45 @@ if($_SESSION['user_type'] !== 'admin') {
 
 <script>
     <?php
-      $admin_id = $_SESSION['user_id'];
-      // $users = $db->select('category',['*'],['admin_id'=>$admin_id])->results();
-      $users = $db->pdoQuery('SELECT category.ctgy_name,category.sub_ctgy_type,register.fname FROM category INNER JOIN register ON category.user_id=register.id')->results();
+        $ctgy_id = $_GET['ctgy_id'];
+        $admin_id = $_SESSION['user_id'];
+    
+        $users = $db->select('upload_image',['*'],['category_id'=>$ctgy_id,'admin_id'=>$admin_id])->results();
+        
     ?>
-
-    function editClick(id) {
-      window.location.href = 'edit.php?id='+id;
-    }
 
     function deleteClick(id) {
       window.location.href = 'delete.php?id='+id;
     }
 
-    function assignClick(id) {
-      window.location.href = 'assign_work.php?id='+id;
-    }
-
-    function messageClick(id) {
-      window.location.href = 'user_msg.php?user_id='+id;
-    }
-
-    function downloadClick(id) {
-      window.location.href = 'download.php?id='+id;
-    }
     $(document).ready(() => {
+      let datas = <?php echo json_encode($users); ?>;
+      var host = window.location.protocol + "//" + window.location.host;
 
+      datas.map((item) => {
+        item.path = host + '/freelances/PHP/upload_images/'+item.img_nme;
+      })
+      console.log(datas)
       $('#example2').DataTable({
         aoColumns: [
-            { "mData": "ctgy_name", "sTitle": "Category Name" },
-            { "mData": "sub_ctgy_type","sTitle": "Category Type"},
-            { "mData": "fname","sTitle": "User Name"},
-            
+            { "mData": "id", "sTitle": "Id" },
+            { "mData": "path", "sTitle": "Images", 
+              "mRender": function (o) {
+                return '<img src='+o+' class="img-responsive"/>'
+              },
+            },
+            {
+                "mData": null,
+                "sTitle":"Action",
+                 "mRender": function (o) {
+                   return '<button class="btn btn-danger" name="delete" onclick="deleteClick('+o.id+')" >Delete</button>'; }
+            }
         ],
-        data: <?php echo json_encode($users); ?>,
+        data: datas,
       });
     })
 
-    function onMemberLocation(memberLoation) {
-    window.location.href = "add_ctgy.php";
-  }
-</script></body>
+</script>
+</form>
+</body>
 </html>
